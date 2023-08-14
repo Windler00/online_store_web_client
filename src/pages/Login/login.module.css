@@ -1,0 +1,10 @@
+.login {
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid lightgray;
+}
+
+.login .field{
+    margin: 16px;
+}

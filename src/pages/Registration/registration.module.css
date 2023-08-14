@@ -1,0 +1,10 @@
+.registration {
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid lightgray;
+}
+
+.registration .field{
+    margin: 16px;
+}
