@@ -1,0 +1,12 @@
+.alertbox {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+.alertbox div {
+ margin: 5px;
+}

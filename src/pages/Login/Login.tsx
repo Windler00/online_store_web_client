@@ -2,6 +2,7 @@ import Button from "@mui/material/Button/Button";
 import TextField from "@mui/material/TextField/TextField";
 import { useState } from "react";
 import styles from './login.module.css'
+import AuthStore from "../../store/AuthStore";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -17,8 +18,7 @@ export default function Login() {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
+        AuthStore.login(email, password)
     };
     return (
         <div className={styles.login}>

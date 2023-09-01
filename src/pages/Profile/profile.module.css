@@ -1,0 +1,8 @@
+.profile{
+    display: flex;
+    flex-direction: column;
+}
+
+.field{
+    margin: 16px;
+}

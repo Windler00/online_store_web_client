@@ -9,6 +9,8 @@ import './index.css'
 import Home from './pages/Home';
 import Login from './pages/Login/Login';
 import Registration from './pages/Registration/Registration';
+import Profile from './pages/Profile/Profile';
+import Product from './pages/Product/Product';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
   {
     path: "/registration",
     element: <Layout><Registration></Registration></Layout>,
+  },
+  {
+    path: "/profile",
+    element: <Layout><Profile></Profile></Layout>,
+  },
+  {
+    path: "/product/:ProductId",
+    element: <Layout><Product></Product></Layout>,
   },
 ]);
 
