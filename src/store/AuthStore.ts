@@ -96,6 +96,27 @@ class AuthStore {
         })
         .catch(error => UiStore.AddErrorAlert(error.message))
     }
+    @action
+    changeName = async (name: string) => {
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${this.token}`);
+        const body = {
+            name: name
+        }
+        fetch(apiUrl + 'auth/changename', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+            }),
+            body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .then(data => {
+            UiStore.AddSuccessAlert(data.message)
+        })
+        .catch(error => UiStore.AddErrorAlert(error.message))
+    }
 }
 
 export default new AuthStore();

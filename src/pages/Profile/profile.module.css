@@ -1,5 +1,13 @@
 .profile{
     display: flex;
+    flex-direction: row;
+}
+.ProfileInfo{
+    display: flex;
+    flex-direction: column;
+}
+.ProfileChange{
+    display: flex;
     flex-direction: column;
 }
 

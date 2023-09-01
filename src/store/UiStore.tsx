@@ -16,6 +16,12 @@ class UiStore {
             </Alert>
         )
         this.AlertStore.push(alert)
+
+        const timer = setTimeout(() => {
+            this.RemoveAlert(message);
+        }, 5000);
+
+        return () => clearTimeout(timer);
     }
     @action
     AddInfoAlert(message: string) {
@@ -25,6 +31,12 @@ class UiStore {
             </Alert>
         )
         this.AlertStore.push(alert)
+
+        const timer = setTimeout(() => {
+            this.RemoveAlert(message);
+        }, 5000);
+
+        return () => clearTimeout(timer);
     }
     @action
     AddWarningAlert(message: string) {
@@ -34,6 +46,12 @@ class UiStore {
             </Alert>
         )
         this.AlertStore.push(alert)
+
+        const timer = setTimeout(() => {
+            this.RemoveAlert(message);
+        }, 5000);
+
+        return () => clearTimeout(timer);
     }
     @action
     AddErrorAlert(message: string) {
@@ -43,6 +61,12 @@ class UiStore {
             </Alert>
         )
         this.AlertStore.push(alert)
+
+        const timer = setTimeout(() => {
+            this.RemoveAlert(message);
+        }, 5000);
+
+        return () => clearTimeout(timer);
     }
 
     @action
