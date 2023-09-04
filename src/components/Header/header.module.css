@@ -1,10 +1,16 @@
 .header {
-    display:  flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-self: center;
     margin-top: 8px;
 }
+
 .header a {
     margin: 8px;
+}
+
+#Link {
+    text-decoration: none;
+    color: black;
 }

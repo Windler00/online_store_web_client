@@ -21,52 +21,58 @@ class ProductStore {
 
     @action
     getProducts = async (first: number, last: number) => {
-        const body = {
-            first: first,
-            last: last,
-        }
+        try {
+            const body = {
+                first: first,
+                last: last,
+            }
 
-        await fetch(apiUrl + 'product/getproducts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.products = []
-                data.map((product: any) => {
-                    let newProduct: Product = {
-                        id: product.id,
-                        name: product.name,
-                        description: product.description
-                    };
-                    this.products.push(newProduct);
-                })
+            const response = fetch(apiUrl + 'product/getproducts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             })
-            .catch(error => UiStore.AddErrorAlert(error));
+            const data = await (await response).json()
+
+            this.products = []
+            data.map((product: any) => {
+                let newProduct: Product = {
+                    id: product.id,
+                    name: product.name,
+                    description: product.description
+                };
+                this.products.push(newProduct);
+            })
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error)
+        }
     }
     @action
     getProduct = async (id: string) => {
-        const body = {
-            id: id
-        }
+        try {
+            const body = {
+                id: id
+            }
 
-        await fetch(apiUrl + 'product/getproduct', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.id = data.id;
-                this.name = data.name;
-                this.description = data.description;
+            const response = fetch(apiUrl + 'product/getproduct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             })
-            .catch(error => UiStore.AddErrorAlert(error));
+            const data = await (await response).json()
+
+            this.id = data.id;
+            this.name = data.name;
+            this.description = data.description;
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error)
+        }
     }
 }
 

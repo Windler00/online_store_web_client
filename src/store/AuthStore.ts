@@ -104,6 +104,7 @@ class AuthStore {
 
             if (data.message === "Email changed") {
                 UiStore.AddSuccessAlert(data.message)
+                this.email = email
             }
             else {
                 UiStore.AddErrorAlert(data.message)
@@ -134,6 +135,7 @@ class AuthStore {
 
             if (data.message === "Username changed") {
                 UiStore.AddSuccessAlert(data.message)
+                this.name = name
             }
             else {
                 UiStore.AddErrorAlert(data.message)
