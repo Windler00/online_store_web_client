@@ -13,6 +13,7 @@ const Profile = observer(() => {
         }
     })
     const [email, setEmail] = useState('');
+
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
@@ -22,6 +23,7 @@ const Profile = observer(() => {
     };
 
     const [name, setName] = useState('');
+
     const handleNameChange = (event: any) => {
         setName(event.target.value);
     };
@@ -29,44 +31,95 @@ const Profile = observer(() => {
         event.preventDefault();
         AuthStore.changeName(name)
     };
+
+    const [newPass, setNewPass] = useState('');
+
+    const handleNewPassChange = (event: any) => {
+        setNewPass(event.target.value);
+    };
+
+    const [newPassRepeat, setNewPassRepeat] = useState('');
+
+    const handleNewPassRepeatChange = (event: any) => {
+        setNewPassRepeat(event.target.value);
+    };
+    const handleSubmitNewPass = (event: any) => {
+        event.preventDefault();
+        AuthStore.changePass(newPass, newPassRepeat)
+    };
     return (
         <div className={styles.profile}>
             <div className={styles.ProfileInfo}>
-                <Typography variant="h5" component="div">
-                    {AuthStore.email}
-                </Typography>
-                <Typography variant="h5" component="div">
-                    {AuthStore.name}
-                </Typography>
+                <div className={styles.field}>
+                    <Typography variant="h6" component="div">
+                        {AuthStore.email}
+                    </Typography>
+                </div>
+                <div className={styles.field}>
+                    <Typography variant="h6" component="div">
+                        {AuthStore.name}
+                    </Typography>
+                </div>
             </div>
 
             <div className={styles.ProfileChange}>
-                <div className={styles.field}>
-                    <TextField
-                        label="Change email"
-                        type="email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                    >
-                    </TextField>
-                </div>
-                <div className={styles.field}>
-                    <Button variant="contained" color="primary" onClick={handleSubmitEmail}>Submit</Button>
-                </div>
+                <form onSubmit={handleSubmitEmail}>
+                    <div className={styles.field}>
+                        <TextField
+                            label="Change email"
+                            type="email"
+                            value={email}
+                            onChange={handleEmailChange}
+                            required
+                        >
+                        </TextField>
+                    </div>
+                    <div className={styles.field}>
+                        <Button variant="contained" color="primary" type="submit">Submit</Button>
+                    </div>
+                </form>
 
-                <div className={styles.field}>
-                    <TextField
-                        label="Change name"
-                        value={name}
-                        onChange={handleNameChange}
-                        required
-                    >
-                    </TextField>
-                </div>
-                <div className={styles.field}>
-                    <Button variant="contained" color="primary" onClick={handleSubmitName}>Submit</Button>
-                </div>
+                <form onSubmit={handleSubmitName}>
+                    <div className={styles.field}>
+                        <TextField
+                            label="Change name"
+                            value={name}
+                            onChange={handleNameChange}
+                            required
+                        >
+                        </TextField>
+                    </div>
+                    <div className={styles.field}>
+                        <Button variant="contained" color="primary" type="submit">Submit</Button>
+                    </div>
+                </form>
+
+                <form onSubmit={handleSubmitNewPass}>
+                    <div className={styles.field}>
+                        <TextField
+                            label="New password"
+                            type="password"
+                            value={newPass}
+                            onChange={handleNewPassChange}
+                            required
+                        >
+                        </TextField>
+                    </div>
+                    <div className={styles.field}>
+                        <TextField
+                            label="Repeat new password"
+                            type="password"
+                            value={newPassRepeat}
+                            onChange={handleNewPassRepeatChange}
+                            required
+                        >
+                        </TextField>
+                    </div>
+                    <div className={styles.field}>
+                        <Button variant="contained" color="primary" type="submit">Submit</Button>
+                    </div>
+                </form>
+
             </div>
 
 

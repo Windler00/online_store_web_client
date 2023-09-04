@@ -7,8 +7,11 @@ import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
 import IconButton from '@mui/material/IconButton/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = observer(() => {
+    let navigate = useNavigate();
+    
     const [email, setEmail] = useState('');
     const [repeatEmail, setRepeatEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,9 +31,12 @@ const Registration = observer(() => {
         setRepeatPassword(event.target.value);
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-        AuthStore.registration(email, repeatEmail, password, repeatPassword)
+        await AuthStore.registration(email, repeatEmail, password, repeatPassword)
+        if(AuthStore.token !== ""){
+            return navigate("/")
+        }
     };
 
     const [showPassword, setShowPassword] = useState(false);
@@ -44,63 +50,65 @@ const Registration = observer(() => {
 
     return (
         <div className={styles.registration}>
-            <div className={styles.field}>
-                <TextField
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    required
-                />
-            </div>
-            <div className={styles.field}>
-                <TextField
-                    label="Email confirmation"
-                    type="email"
-                    value={repeatEmail}
-                    onChange={handleRepeatEmailChange}
-                    required
-                />
-            </div>
-            <div className={styles.field}>
-                <TextField
-                    label="Password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleTogglePasswordVisibility}>
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </div>
-            <div className={styles.field}>
-                <TextField
-                    label="Password confirmation"
-                    type={showRepeatPassword ? 'text' : 'password'}
-                    value={repeatPassword}
-                    onChange={handlePasswordRepeatChange}
-                    required
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleToggleRepeatPasswordVisibility}>
-                                    {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </div>
-            <div className={styles.field}>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className={styles.field}>
+                    <TextField
+                        label="Email"
+                        type="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        required
+                    />
+                </div>
+                <div className={styles.field}>
+                    <TextField
+                        label="Email confirmation"
+                        type="email"
+                        value={repeatEmail}
+                        onChange={handleRepeatEmailChange}
+                        required
+                    />
+                </div>
+                <div className={styles.field}>
+                    <TextField
+                        label="Password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={handlePasswordChange}
+                        required
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleTogglePasswordVisibility}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </div>
+                <div className={styles.field}>
+                    <TextField
+                        label="Password confirmation"
+                        type={showRepeatPassword ? 'text' : 'password'}
+                        value={repeatPassword}
+                        onChange={handlePasswordRepeatChange}
+                        required
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleToggleRepeatPasswordVisibility}>
+                                        {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </div>
+                <div className={styles.field}>
+                    <Button variant="contained" color="primary" type='submit'>Submit</Button>
+                </div>
+            </form>
         </div>
     )
 })

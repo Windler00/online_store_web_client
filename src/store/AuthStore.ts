@@ -4,10 +4,10 @@ import jwt from 'jwt-decode';
 import UiStore from "./UiStore";
 
 class AuthStore {
-    constructor(){
+    constructor() {
         makeAutoObservable(this);
     }
-    
+
     @observable token: string = "";
     @observable id: number | undefined;
     @observable email: string = "";
@@ -15,107 +15,164 @@ class AuthStore {
     @observable role: string = "";
 
     @action
-    registration = async (email:string, repeatEmail:string, password:string, repeatPassword:string) => {
-        const body = {
-            email: email,
-            emailConfirmation: repeatEmail,
-            password: password,
-            passwordConfirmation: repeatPassword
-        }
-        fetch(apiUrl + 'auth/registration', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(data => {
+    registration = async (email: string, repeatEmail: string, password: string, repeatPassword: string) => {
+        try {
+            const body = {
+                email: email,
+                emailConfirmation: repeatEmail,
+                password: password,
+                passwordConfirmation: repeatPassword
+            }
+            const response = fetch(apiUrl + 'auth/registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+
+            const data = await (await response).json();
+
             if (data.token !== undefined) {
                 this.token = data.token;
-                const jwtObj: any = jwt(this.token);
-                this.role = jwtObj["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                this.name = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-                UiStore.AddSuccessAlert("Registration successful")
-            }
-            else{
-                UiStore.AddErrorAlert(data.message)
-            }
-        })
-        .catch(error => UiStore.AddErrorAlert(error));
-    }
-
-    @action
-    login = async (email:string, password:string) => {
-        const body = {
-            email: email,
-            password: password
-        }
-        fetch(apiUrl + 'auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.token !== undefined) {
-                this.token = data.token
                 const jwtObj: any = jwt(this.token);
                 this.email = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
                 this.role = jwtObj["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
                 this.name = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-                UiStore.AddSuccessAlert("Login successful")
+                UiStore.AddSuccessAlert("Login successful");
             }
-            else{
-                UiStore.AddErrorAlert(data.message)
+            else {
+                UiStore.AddErrorAlert(data.message);
             }
-        })
-        .catch(error => UiStore.AddErrorAlert(error))
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error);
+        }
     }
 
-    @action 
-    changeEmail = async(email:string) => {
-        const headers = new Headers();
-        headers.append('Authorization', `Bearer ${this.token}`);
-        const body = {
-            email: email
+    @action
+    login = async (email: string, password: string) => {
+        try {
+            const body = {
+                email: email,
+                password: password
+            }
+            const response = fetch(apiUrl + 'auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+
+            const data = await (await response).json();
+
+            if (data.token !== undefined) {
+                this.token = data.token;
+                const jwtObj: any = jwt(this.token);
+                this.email = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+                this.role = jwtObj["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+                this.name = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+                UiStore.AddSuccessAlert("Login successful");
+            }
+            else {
+                UiStore.AddErrorAlert(data.message);
+            }
         }
-        fetch(apiUrl + 'auth/changeemail', {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.token}`
-            }),
-            body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(data => {
-            UiStore.AddSuccessAlert(data.message)
-        })
-        .catch(error => UiStore.AddErrorAlert(error.message))
+        catch (error: any) {
+            UiStore.AddErrorAlert(error);
+        }
     }
+
+    @action
+    changeEmail = async (email: string) => {
+        try {
+            const headers = new Headers();
+            headers.append('Authorization', `Bearer ${this.token}`);
+            const body = {
+                email: email
+            }
+            const response = fetch(apiUrl + 'auth/changeemail', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json();
+
+            if (data.message === "Email changed") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else {
+                UiStore.AddErrorAlert(data.message)
+            }
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error.message)
+        }
+    }
+
     @action
     changeName = async (name: string) => {
-        const headers = new Headers();
-        headers.append('Authorization', `Bearer ${this.token}`);
-        const body = {
-            name: name
+        try {
+            const headers = new Headers();
+            headers.append('Authorization', `Bearer ${this.token}`);
+            const body = {
+                name: name
+            }
+            const response = fetch(apiUrl + 'auth/changename', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json();
+
+            if (data.message === "Username changed") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else {
+                UiStore.AddErrorAlert(data.message)
+            }
         }
-        fetch(apiUrl + 'auth/changename', {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.token}`
-            }),
-            body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(data => {
-            UiStore.AddSuccessAlert(data.message)
-        })
-        .catch(error => UiStore.AddErrorAlert(error.message))
+        catch (error: any) {
+            UiStore.AddErrorAlert(error.message)
+        }
+    }
+
+    @action
+    changePass = async (newPass: string, newPassRepeat: string) => {
+        try{
+            const headers = new Headers();
+            headers.append('Authorization', `Bearer ${this.token}`);
+            const body = {
+                NewPass: newPass,
+                NewPassRepeat: newPassRepeat
+            }
+            const response = fetch(apiUrl + 'auth/changepass', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json();
+
+            if (data.message === "Password changed") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else {
+                UiStore.AddErrorAlert(data.message)
+            }
+        }
+        catch(error:any){
+            UiStore.AddErrorAlert(error.message)
+        }
     }
 }
 

@@ -3,8 +3,12 @@ import TextField from "@mui/material/TextField/TextField";
 import { useState } from "react";
 import styles from './login.module.css'
 import AuthStore from "../../store/AuthStore";
+import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-export default function Login() {
+const Login = observer(() => {
+    let navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -16,33 +20,40 @@ export default function Login() {
         setPassword(event.target.value);
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-        AuthStore.login(email, password)
+        await AuthStore.login(email, password)
+        if (AuthStore.token !== "") {
+            return navigate("/")
+        }
     };
     return (
         <div className={styles.login}>
-            <div className={styles.field}>
-                <TextField
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    required
-                />
-            </div>
-            <div className={styles.field}>
-                <TextField
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                />
-            </div>
-            <div className={styles.field}>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className={styles.field}>
+                    <TextField
+                        label="Email"
+                        type="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        required
+                    />
+                </div>
+                <div className={styles.field}>
+                    <TextField
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        required
+                    />
+                </div>
+                <div className={styles.field}>
+                    <Button variant="contained" color="primary" type="submit">Submit</Button>
+                </div>
+            </form>
         </div>
     )
-}
+})
+
+export default Login
