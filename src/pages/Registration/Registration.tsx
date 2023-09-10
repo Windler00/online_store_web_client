@@ -14,6 +14,7 @@ const Registration = observer(() => {
     
     const [email, setEmail] = useState('');
     const [repeatEmail, setRepeatEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -23,7 +24,9 @@ const Registration = observer(() => {
     const handleRepeatEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRepeatEmail(event.target.value);
     };
-
+    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value);
+    };
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
@@ -33,7 +36,7 @@ const Registration = observer(() => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await AuthStore.registration(email, repeatEmail, password, repeatPassword)
+        await AuthStore.registration(email, repeatEmail,username, password, repeatPassword)
         if(AuthStore.token !== ""){
             return navigate("/")
         }
@@ -68,6 +71,16 @@ const Registration = observer(() => {
                         autoComplete="email"
                         value={repeatEmail}
                         onChange={handleRepeatEmailChange}
+                        required
+                    />
+                </div>
+                <div className={styles.field}>
+                    <TextField
+                        label="Username"
+                        type='username'
+                        autoComplete='username'
+                        value={username}
+                        onChange={handleUsernameChange}
                         required
                     />
                 </div>

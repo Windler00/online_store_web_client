@@ -15,11 +15,12 @@ class AuthStore {
     @observable role: string = "";
 
     @action
-    registration = async (email: string, repeatEmail: string, password: string, repeatPassword: string) => {
+    registration = async (email: string, repeatEmail: string,username:string, password: string, repeatPassword: string) => {
         try {
             const body = {
                 email: email,
                 emailConfirmation: repeatEmail,
+                username: username,
                 password: password,
                 passwordConfirmation: repeatPassword
             }
