@@ -52,6 +52,11 @@ const Header = observer(() => {
                                 onClose={handleClose}
                             >
                                 <MenuItem><Link id={styles.Link} to="/profile">Profile</Link></MenuItem>
+                                {AuthStore.role === "Admin" ? (
+                                    <MenuItem><Link id={styles.Link} to="/admin">Admin Panel</Link></MenuItem>
+                                )
+                                :
+                                (<></>)}
                                 <MenuItem onClick= {() => {HandleLogout(); handleClose();}}>Log out</MenuItem>
                             </Menu>
                         </div>

@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import Registration from './pages/Registration/Registration';
 import Profile from './pages/Profile/Profile';
 import Product from './pages/Product/Product';
+import Admin from './pages/Admin/Admin';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/product/:ProductId",
     element: <Layout><Product></Product></Layout>,
+  },
+  {
+    path: "/admin",
+    element: <Layout><Admin></Admin></Layout>,
   },
 ]);
 
