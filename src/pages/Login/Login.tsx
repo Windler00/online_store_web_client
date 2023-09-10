@@ -35,6 +35,7 @@ const Login = observer(() => {
                         label="Email"
                         type="email"
                         value={email}
+                        autoComplete="username"
                         onChange={handleEmailChange}
                         required
                     />
@@ -44,6 +45,7 @@ const Login = observer(() => {
                         label="Password"
                         type="password"
                         value={password}
+                        autoComplete="current-password"
                         onChange={handlePasswordChange}
                         required
                     />

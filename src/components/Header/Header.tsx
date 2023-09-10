@@ -21,6 +21,7 @@ const Header = observer(() => {
         AuthStore.token = "";
     }
 
+
     return (
         <div className={styles.header}>
             <div className={styles.left}>
@@ -41,7 +42,7 @@ const Header = observer(() => {
                 )
                     :
                     (
-                        <div>
+                        <div className={styles.right}>
                             <Button variant="contained" aria-controls="dropdown-menu" aria-haspopup="true" onClick={handleClick}>{AuthStore.email}</Button>
                             <Menu
                                 id="dropdown-menu"

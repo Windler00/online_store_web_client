@@ -56,6 +56,7 @@ const Registration = observer(() => {
                         label="Email"
                         type="email"
                         value={email}
+                        autoComplete="email"
                         onChange={handleEmailChange}
                         required
                     />
@@ -64,6 +65,7 @@ const Registration = observer(() => {
                     <TextField
                         label="Email confirmation"
                         type="email"
+                        autoComplete="email"
                         value={repeatEmail}
                         onChange={handleRepeatEmailChange}
                         required
@@ -73,6 +75,7 @@ const Registration = observer(() => {
                     <TextField
                         label="Password"
                         type={showPassword ? 'text' : 'password'}
+                        autoComplete="current-password"
                         value={password}
                         onChange={handlePasswordChange}
                         required
@@ -91,6 +94,7 @@ const Registration = observer(() => {
                     <TextField
                         label="Password confirmation"
                         type={showRepeatPassword ? 'text' : 'password'}
+                        autoComplete="current-password"
                         value={repeatPassword}
                         onChange={handlePasswordRepeatChange}
                         required

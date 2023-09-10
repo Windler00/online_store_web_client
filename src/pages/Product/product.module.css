@@ -8,3 +8,9 @@
     width: 400px;
     height: 200px;
 }
+
+.ProductInfo{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
