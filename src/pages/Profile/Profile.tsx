@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 
+
 const Profile = observer(() => {
     let navigate = useNavigate();
     useEffect(() => {
@@ -47,24 +48,32 @@ const Profile = observer(() => {
         event.preventDefault();
         AuthStore.changePass(newPass, newPassRepeat)
     };
+
     return (
         <div className={styles.profile}>
             <div className={styles.ProfileInfo}>
-                <div className={styles.field}>
-                    <Typography variant="h6" component="div">
-                        {AuthStore.email}
-                    </Typography>
-                </div>
-                <div className={styles.field}>
-                    <Typography variant="h6" component="div">
-                        {AuthStore.name}
-                    </Typography>
+                <div className={styles.avatar}>
+                    {AuthStore.avatar === "" ?
+                        (
+                            <>
+                                <img alt="avatar" src={process.env.PUBLIC_URL + "defaultAvatar.png"} width="200px"></img>
+                            </>
+                        )
+                        :
+                        (
+                            <>
+                                <img alt="avatar" src={AuthStore.avatar} width="200px"></img>
+                            </>
+                        )}
                 </div>
             </div>
 
             <div className={styles.ProfileChange}>
                 <form onSubmit={handleSubmitEmail}>
                     <div className={styles.field}>
+                        <Typography variant="h6" component="div">
+                            Current email: {AuthStore.email}
+                        </Typography>
                         <TextField
                             label="Change email"
                             type="email"
@@ -81,6 +90,9 @@ const Profile = observer(() => {
 
                 <form onSubmit={handleSubmitName}>
                     <div className={styles.field}>
+                        <Typography variant="h6" component="div">
+                            Current name: {AuthStore.name}
+                        </Typography>
                         <TextField
                             label="Change name"
                             value={name}

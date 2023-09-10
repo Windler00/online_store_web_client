@@ -13,6 +13,7 @@ class AuthStore {
     @observable email: string = "";
     @observable name: string = "";
     @observable role: string = "";
+    @observable avatar:string = "";
 
     @action
     registration = async (email: string, repeatEmail: string,username:string, password: string, repeatPassword: string) => {
@@ -36,10 +37,10 @@ class AuthStore {
 
             if (data.token !== undefined) {
                 this.token = data.token;
+                this.role = data.role;
+                this.name = data.name;
                 const jwtObj: any = jwt(this.token);
                 this.email = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
-                this.role = jwtObj["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                this.name = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
                 UiStore.AddSuccessAlert("Login successful");
             }
             else {
@@ -70,10 +71,11 @@ class AuthStore {
 
             if (data.token !== undefined) {
                 this.token = data.token;
+                this.role = data.role;
+                this.name = data.name;
+                this.avatar = data.avatar;
                 const jwtObj: any = jwt(this.token);
                 this.email = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
-                this.role = jwtObj["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-                this.name = jwtObj["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
                 UiStore.AddSuccessAlert("Login successful");
             }
             else {

@@ -52,7 +52,7 @@ const Header = observer(() => {
                                 onClose={handleClose}
                             >
                                 <MenuItem><Link id={styles.Link} to="/profile">Profile</Link></MenuItem>
-                                <MenuItem onClick={HandleLogout}>Log out</MenuItem>
+                                <MenuItem onClick= {() => {HandleLogout(); handleClose();}}>Log out</MenuItem>
                             </Menu>
                         </div>
                     )}
