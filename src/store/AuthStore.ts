@@ -13,10 +13,11 @@ class AuthStore {
     @observable email: string = "";
     @observable name: string = "";
     @observable role: string = "";
-    @observable avatar:string = "";
+    @observable avatar: string = "";
+    @observable users:any[] = [];
 
     @action
-    registration = async (email: string, repeatEmail: string,username:string, password: string, repeatPassword: string) => {
+    registration = async (email: string, repeatEmail: string, username: string, password: string, repeatPassword: string) => {
         try {
             const body = {
                 email: email,
@@ -151,9 +152,7 @@ class AuthStore {
 
     @action
     changePass = async (newPass: string, newPassRepeat: string) => {
-        try{
-            const headers = new Headers();
-            headers.append('Authorization', `Bearer ${this.token}`);
+        try {
             const body = {
                 NewPass: newPass,
                 NewPassRepeat: newPassRepeat
@@ -175,8 +174,55 @@ class AuthStore {
                 UiStore.AddErrorAlert(data.message)
             }
         }
-        catch(error:any){
+        catch (error: any) {
             UiStore.AddErrorAlert(error.message)
+        }
+    }
+    @action
+    getUsers = async (first: number, last: number) => {
+        try {
+            const body = {
+                first: first,
+                last: last
+            }
+            const response = fetch(apiUrl + "auth/getusers", {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json();
+            this.users = data;
+        }
+        catch (error:any) {
+            UiStore.AddErrorAlert("Failed to fetch users:" + error)
+        }
+    }
+
+    @action
+    changeRole = async(id:number, role:string) => {
+        try{
+            const body = {
+                id:id,
+                role:role
+            }
+            const response = fetch(apiUrl + "auth/changerole", {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json();
+            if (data.message === "Role changed") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+        }
+        catch(error:any){
+            UiStore.AddErrorAlert(error)
         }
     }
 }

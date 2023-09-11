@@ -1,0 +1,20 @@
+.Seller{
+    display: flex;
+    flex-direction: row;
+}
+
+.Img {
+    display: flex;
+    width: 400px;
+    height: 200px;
+}
+
+.ProductInfo{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+.Field{
+    margin: 16px;
+}

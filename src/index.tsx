@@ -12,6 +12,7 @@ import Registration from './pages/Registration/Registration';
 import Profile from './pages/Profile/Profile';
 import Product from './pages/Product/Product';
 import Admin from './pages/Admin/Admin';
+import Seller from './pages/Seller/Seller';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Layout><Admin></Admin></Layout>,
+  },
+  {
+    path: "/seller",
+    element: <Layout><Seller></Seller></Layout>,
   },
 ]);
 

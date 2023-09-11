@@ -1,6 +1,8 @@
 import { action, makeAutoObservable, observable } from "mobx";
 import apiUrl from "../config";
 import UiStore from "./UiStore";
+import AuthStore from "./AuthStore";
+import { Message } from "@mui/icons-material";
 
 
 type Product = {
@@ -69,6 +71,35 @@ class ProductStore {
             this.id = data.id;
             this.name = data.name;
             this.description = data.description;
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error)
+        }
+    }
+
+    @action
+    createProduct = async (name:string, description:string) => {
+        try{
+            const body = {
+                name:name,
+                description:description
+            }
+
+            const response = fetch(apiUrl + 'product/createproduct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${AuthStore.token}`
+                },
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json()
+            if (data.message === "Product added"){
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else{
+                UiStore.AddErrorAlert(data.message)
+            }
         }
         catch (error: any) {
             UiStore.AddErrorAlert(error)

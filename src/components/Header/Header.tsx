@@ -53,11 +53,17 @@ const Header = observer(() => {
                             >
                                 <MenuItem><Link id={styles.Link} to="/profile">Profile</Link></MenuItem>
                                 {AuthStore.role === "Admin" ? (
-                                    <MenuItem><Link id={styles.Link} to="/admin">Admin Panel</Link></MenuItem>
+                                    <>
+                                        <MenuItem><Link id={styles.Link} to="/admin">Admin Panel</Link></MenuItem>
+                                        <MenuItem><Link id={styles.Link} to="/seller">Seller Panel</Link></MenuItem>
+                                    </>
                                 )
-                                :
-                                (<></>)}
-                                <MenuItem onClick= {() => {HandleLogout(); handleClose();}}>Log out</MenuItem>
+                                    : AuthStore.role === "Seller" ? (
+                                        <MenuItem><Link id={styles.Link} to="/seller">Seller Panel</Link></MenuItem>
+                                    )
+                                        :
+                                        (<></>)}
+                                <MenuItem onClick={() => { HandleLogout(); handleClose(); }}>Log out</MenuItem>
                             </Menu>
                         </div>
                     )}
