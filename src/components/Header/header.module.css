@@ -1,20 +1,47 @@
-.header {
+.Header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-self: center;
-    margin-top: 8px;
 }
 
-.header a {
-    margin: 8px;
-}
-
-#Link {
+.Header button,
+a {
+    display: flex;
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+    color: #333;
     text-decoration: none;
-    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2px;
 }
 
-.right {
-    margin-right: 8px;
+.Header button:hover,
+a:hover {
+    background-color: #ddd;
+}
+
+.Header ul {
+    display: inline-flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.DropdownMenu {
+    position: absolute;
+    z-index: 1;
+    left: auto;
+    right: 0;
+}
+
+#Login,
+#Registration {
+    display: inline-flex;
+    flex-direction: row;
 }

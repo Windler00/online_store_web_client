@@ -1,3 +1,3 @@
-let apiUrl: string = "https://localhost:7000/api/"
+let apiUrl: string = "http://localhost:5000/api/"
 
 export default apiUrl

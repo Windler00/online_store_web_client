@@ -1,20 +1,14 @@
-import Button from '@mui/material/Button/Button'
 import styles from './header.module.css'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import AuthStore from '../../store/AuthStore'
 import { useState } from 'react'
-import { Menu, MenuItem } from '@mui/material'
 
 const Header = observer(() => {
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
-    const handleClick = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleClick = () => {
+        setDropdownIsOpen(!dropdownIsOpen);
     };
 
     const HandleLogout = () => {
@@ -23,48 +17,34 @@ const Header = observer(() => {
 
 
     return (
-        <div className={styles.header}>
+        <div className={styles.Header}>
             <div className={styles.left}>
-                <Link to='/'>
-                    <Button variant="contained">OnlineStore</Button>
-                </Link>
+                <Link to='/'>OnlineStore</Link>
             </div>
             <div className={styles.right}>
                 {AuthStore.token === "" ? (
                     <div>
-                        <Link to='/login'>
-                            <Button variant="contained">Login</Button>
-                        </Link>
-                        <Link to='/registration'>
-                            <Button variant="contained">Registration</Button>
-                        </Link>
+                        <Link id={styles.Login} to='/login'>Login</Link>
+                        <Link id={styles.Registration} to='/registration'>Registration</Link>
                     </div>
                 )
                     :
                     (
                         <div className={styles.right}>
-                            <Button variant="contained" aria-controls="dropdown-menu" aria-haspopup="true" onClick={handleClick}>{AuthStore.email}</Button>
-                            <Menu
-                                id="dropdown-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <MenuItem><Link id={styles.Link} to="/profile">Profile</Link></MenuItem>
+                            <button onClick={handleClick}>{AuthStore.email}</button>
+                            {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
+                                <li><Link to="/profile">Profile</Link></li>
                                 {AuthStore.role === "Admin" ? (
                                     <>
-                                        <MenuItem><Link id={styles.Link} to="/admin">Admin Panel</Link></MenuItem>
-                                        <MenuItem><Link id={styles.Link} to="/seller">Seller Panel</Link></MenuItem>
+                                        <li><Link to="/admin">Admin panel</Link></li>
+                                        <li><Link to="/seller">Seller panel</Link></li>
                                     </>
-                                )
-                                    : AuthStore.role === "Seller" ? (
-                                        <MenuItem><Link id={styles.Link} to="/seller">Seller Panel</Link></MenuItem>
-                                    )
-                                        :
-                                        (<></>)}
-                                <MenuItem onClick={() => { HandleLogout(); handleClose(); }}>Log out</MenuItem>
-                            </Menu>
+                                ):
+                                (<>
+                                    <li><Link to="/seller">Seller panel</Link></li>
+                                </>)}
+                                <li><button onClick={HandleLogout}>Log Out</button></li>
+                            </ul>)}
                         </div>
                     )}
             </div>
