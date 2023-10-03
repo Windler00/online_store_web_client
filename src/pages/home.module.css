@@ -1,3 +1,35 @@
-.ProductCard:hover{
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+.Products{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ProductCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    margin: 6px;
+}
+
+.ProductCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.ProductCard h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.ProductCard p {
+    font-size: 14px;
+    color: #888;
 }
