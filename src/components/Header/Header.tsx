@@ -2,7 +2,7 @@ import styles from './header.module.css'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import AuthStore from '../../store/AuthStore'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const Header = observer(() => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -14,6 +14,22 @@ const Header = observer(() => {
     const HandleLogout = () => {
         AuthStore.token = "";
     }
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (event:any) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
 
 
     return (
@@ -30,7 +46,7 @@ const Header = observer(() => {
                 )
                     :
                     (
-                        <div className={styles.right}>
+                        <div className={styles.right} ref={dropdownRef}>
                             <button onClick={handleClick}>{AuthStore.email}</button>
                             {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
                                 <li><Link to="/profile">Profile</Link></li>
@@ -39,10 +55,10 @@ const Header = observer(() => {
                                         <li><Link to="/admin">Admin panel</Link></li>
                                         <li><Link to="/seller">Seller panel</Link></li>
                                     </>
-                                ):
-                                (<>
-                                    <li><Link to="/seller">Seller panel</Link></li>
-                                </>)}
+                                ) :
+                                    (<>
+                                        <li><Link to="/seller">Seller panel</Link></li>
+                                    </>)}
                                 <li><button onClick={HandleLogout}>Log Out</button></li>
                             </ul>)}
                         </div>
