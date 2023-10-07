@@ -26,3 +26,23 @@
     font-size: 1rem;
     margin-bottom: 1rem;
   }
+
+  .ProductInfo button{
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  outline: none;
+  }
+  
+  .ProductInfo button:hover {
+    background-color: #0056b3;
+  }
+
+  .ProductInfo button:active {
+    background-color: #003473;
+  }

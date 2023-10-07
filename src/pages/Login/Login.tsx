@@ -29,30 +29,29 @@ const Login = observer(() => {
     };
     return (
         <div className={styles.login}>
-            <form onSubmit={handleSubmit}>
-                <div className={styles.field}>
-                    <TextField
-                        label="Email"
+            <h1>Login</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                    <label htmlFor="email">Email</label>
+                    <input
                         type="email"
+                        id="email"
                         value={email}
-                        autoComplete="username"
                         onChange={handleEmailChange}
-                        required
                     />
                 </div>
-                <div className={styles.field}>
-                    <TextField
-                        label="Password"
+                <div className={styles.formGroup}>
+                    <label htmlFor="password">Password</label>
+                    <input
                         type="password"
+                        id="password"
                         value={password}
-                        autoComplete="current-password"
                         onChange={handlePasswordChange}
-                        required
                     />
                 </div>
-                <div className={styles.field}>
-                    <Button variant="contained" color="primary" type="submit">Submit</Button>
-                </div>
+                <button type="submit" className={styles.submitButton}>
+                    Log In
+                </button>
             </form>
         </div>
     )
