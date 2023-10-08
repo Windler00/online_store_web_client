@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite"
 import AuthStore from "../../store/AuthStore";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import styles from "./admin.module.css"
 
 
 const Admin = observer(() => {
@@ -15,7 +15,7 @@ const Admin = observer(() => {
         }
     }, [])
 
-    const HandleSelect = (Props:any) => {
+    const HandleSelect = (Props:{currRole:string, id:number}) => {
         const [role, setRole] = useState(Props.currRole);
 
 
@@ -24,15 +24,12 @@ const Admin = observer(() => {
             setRole(event.target.value)
         }
         return (
-            <div>
-                <Select
-                    value={role}
-                    onChange={handleRoleChange}
-                >
-                    <MenuItem value="User">User</MenuItem>
-                    <MenuItem value="Seller">Seller</MenuItem>
-                    <MenuItem value="Admin">Admin</MenuItem>
-                </Select>
+            <div className={styles.RoleSelect}>
+                <select value={role} onChange={handleRoleChange}>
+                    <option value="User">User</option>
+                    <option value="Seller">Seller</option>
+                    <option value="Admin">Admin</option>
+                </select>
             </div>
         )
     }
@@ -42,32 +39,28 @@ const Admin = observer(() => {
         <div>
             {AuthStore.role !== "Admin" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />)
                 :
-                <>
-                    <TableContainer component={Paper}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Id</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Role</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {AuthStore.users.map((user) => (
-                                    <TableRow key={user.id}>
-                                        <TableCell>{user.id}</TableCell>
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.email}</TableCell>
-                                        <TableCell>
-                                            <HandleSelect id={user.id} currRole={user.role}/>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </>}
+                <div className={styles.Admin}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {AuthStore.users.map((user) => (
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td><HandleSelect id={user.id} currRole={user.role}/></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>}
         </div>
     )
 })
