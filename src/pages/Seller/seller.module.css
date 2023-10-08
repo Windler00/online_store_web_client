@@ -1,20 +1,45 @@
 .Seller{
     display: flex;
-    flex-direction: row;
 }
-
-.Img {
+.Img img{
     display: flex;
-    width: 400px;
-    height: 200px;
+    max-width: 600px;
+    max-height: 600px;
+}
+.Form {
+    margin-bottom: 16px;
+    margin-left: 16px;
 }
 
-.ProductInfo{
-    display: flex;
-    flex-direction: column;
-    margin: 12px;
+.Form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
 
-.Field{
-    margin: 16px;
+.Form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    margin-bottom: 8px;
+}
+
+.Form input:focus {
+    border-color: #007bff;
+}
+
+.Form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Form button:hover {
+    background-color: #0056b3;
 }

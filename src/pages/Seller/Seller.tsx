@@ -1,23 +1,14 @@
 import { observer } from "mobx-react-lite";
 import styles from "./seller.module.css"
-import { Button, Card, CardMedia, Dialog, TextField, Typography, Zoom } from "@mui/material";
 import { useState } from "react";
 import ProductStore from "../../store/ProductStore";
 import AuthStore from "../../store/AuthStore";
 import { Navigate } from "react-router-dom";
+import Image from "../../components/Image/Image"
 
 
 const Seller = observer(() => {
-    
-    const [open, setOpen] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
@@ -38,45 +29,27 @@ const Seller = observer(() => {
         <div className={styles.Seller}>
             {AuthStore.role !== "Seller" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />) : (<></>)}
             <div className={styles.Img}>
-                <Card>
-                    <CardMedia
-                        component="img"
-                        image="https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png"
-                        onClick={handleOpen}
-                        alt="Product Image"
-                    />
-                    <Dialog open={open} onClose={handleClose}>
-                        <Zoom in={open}>
-                            <img src="https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png" alt="Zoomed Product Image" />
-                        </Zoom>
-                    </Dialog>
-                </Card>
+                <Image src="https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png" alt="Product image" />
             </div>
             <div className={styles.ProductInfo}>
-                <div className={styles.Field}>
-                    <Typography variant="h5" component="div">
-                        <TextField
-                            label="Product name"
+                <div className={styles.Form}>
+                    <form>
+                        <label>Product name</label>
+                        <input
+                            type="text"
+                            id="ProductName"
                             value={productName}
                             onChange={handleProductNameChange}
-                            required
                         />
-                    </Typography>
-                </div>
-                <div className={styles.Field}>
-                    <Typography variant="body2" color="text.secondary">
-                        <TextField
-                            label="Product description"
+                        <label>Product description</label>
+                        <input
+                            type="text"
+                            id="ProductDescription"
                             value={productDescription}
                             onChange={handleProductDescriptionChange}
-                            required
                         />
-                    </Typography>
-                </div>
-                <div className={styles.Field}>
-                    <Button variant="contained" onClick={handleSubmit}>
-                        Submit
-                    </Button>
+                        <button type="submit" onClick={handleSubmit}>Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
