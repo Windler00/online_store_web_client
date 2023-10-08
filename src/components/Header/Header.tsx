@@ -55,10 +55,8 @@ const Header = observer(() => {
                                         <li><Link to="/admin">Admin panel</Link></li>
                                         <li><Link to="/seller">Seller panel</Link></li>
                                     </>
-                                ) :
-                                    (<>
-                                        <li><Link to="/seller">Seller panel</Link></li>
-                                    </>)}
+                                ) : (<></>)}
+                                {AuthStore.role === "Seller" ? (<><Link to="/seller">Seller panel</Link></>) : (<></>)}
                                 <li><button onClick={HandleLogout}>Log Out</button></li>
                             </ul>)}
                         </div>

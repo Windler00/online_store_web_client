@@ -3,9 +3,12 @@ import styles from "./seller.module.css"
 import { Button, Card, CardMedia, Dialog, TextField, Typography, Zoom } from "@mui/material";
 import { useState } from "react";
 import ProductStore from "../../store/ProductStore";
+import AuthStore from "../../store/AuthStore";
+import { Navigate } from "react-router-dom";
 
 
 const Seller = observer(() => {
+    
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -33,6 +36,7 @@ const Seller = observer(() => {
 
     return (
         <div className={styles.Seller}>
+            {AuthStore.role !== "Seller" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />) : (<></>)}
             <div className={styles.Img}>
                 <Card>
                     <CardMedia
