@@ -11,6 +11,46 @@
     flex-direction: column;
 }
 
-.field{
+.avatar{
+    display: flex;
+    max-width: 200px;
+    max-height: 200px;
     margin: 16px;
+}
+
+.Form {
+    margin-bottom: 15px;
+}
+
+.Form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.Form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    margin-bottom: 5px;
+}
+
+.Form input:focus {
+    border-color: #007bff;
+}
+
+.Form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Form button:hover {
+    background-color: #0056b3;
 }

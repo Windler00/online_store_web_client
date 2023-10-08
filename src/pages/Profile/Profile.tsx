@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import styles from './profile.module.css'
-import { Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
+import Image from "../../components/Image/Image"
 
 
 const Profile = observer(() => {
@@ -13,41 +13,94 @@ const Profile = observer(() => {
             return navigate("/login")
         }
     })
-    const [email, setEmail] = useState('');
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    };
-    const handleSubmitEmail = (event: any) => {
-        event.preventDefault();
-        AuthStore.changeEmail(email)
-    };
+    const HandleEmail = observer(() => {
+        const [email, setEmail] = useState('');
 
-    const [name, setName] = useState('');
+        const handleEmailChange = (event: any) => {
+            setEmail(event.target.value);
+        };
+        const handleSubmitEmail = (event: any) => {
+            event.preventDefault();
+            AuthStore.changeEmail(email)
+        };
+        return (
+            <div className={styles.Form}>
+                <form>
+                    <label>{AuthStore.email}</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange} />
+                    <button type="submit" onClick={handleSubmitEmail}>Submit</button>
+                </form>
+            </div>
+        )
+    })
 
-    const handleNameChange = (event: any) => {
-        setName(event.target.value);
-    };
-    const handleSubmitName = (event: any) => {
-        event.preventDefault();
-        AuthStore.changeName(name)
-    };
+    const HandleName = observer(() => {
+        const [name, setName] = useState('');
 
-    const [newPass, setNewPass] = useState('');
+        const handleNameChange = (event: any) => {
+            setName(event.target.value);
+        };
+        const handleSubmitName = (event: any) => {
+            event.preventDefault();
+            AuthStore.changeName(name)
+        };
+        return (
+            <div className={styles.Form}>
+                <form>
+                    <label>{AuthStore.name}</label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={handleNameChange} />
+                </form>
+                <button type="submit" onClick={handleSubmitName}>Submit</button>
+            </div>
+        )
+    })
 
-    const handleNewPassChange = (event: any) => {
-        setNewPass(event.target.value);
-    };
+    const HandlePassword = observer(() => {
+        const [newPass, setNewPass] = useState('');
 
-    const [newPassRepeat, setNewPassRepeat] = useState('');
+        const handleNewPassChange = (event: any) => {
+            setNewPass(event.target.value);
+        };
 
-    const handleNewPassRepeatChange = (event: any) => {
-        setNewPassRepeat(event.target.value);
-    };
-    const handleSubmitNewPass = (event: any) => {
-        event.preventDefault();
-        AuthStore.changePass(newPass, newPassRepeat)
-    };
+        const [newPassRepeat, setNewPassRepeat] = useState('');
+
+        const handleNewPassRepeatChange = (event: any) => {
+            setNewPassRepeat(event.target.value);
+        };
+        const handleSubmitNewPass = (event: any) => {
+            event.preventDefault();
+            AuthStore.changePass(newPass, newPassRepeat)
+        };
+        return (
+            <div className={styles.Form}>
+                <form>
+                    <label>Change password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={newPass}
+                        onChange={handleNewPassChange}
+                    />
+                    <input
+                        type="password"
+                        id="repeatPassword"
+                        value={newPassRepeat}
+                        onChange={handleNewPassRepeatChange}
+                    />
+                    <button type="submit" onClick={handleSubmitNewPass}>Submit</button>
+                </form>
+            </div>
+        )
+    })
 
     return (
         <div className={styles.profile}>
@@ -56,82 +109,22 @@ const Profile = observer(() => {
                     {AuthStore.avatar === "" ?
                         (
                             <>
-                                <img alt="avatar" src={process.env.PUBLIC_URL + "defaultAvatar.png"} width="200px"></img>
+                                <Image src={process.env.PUBLIC_URL + "defaultAvatar.png"} alt="avatar" />
                             </>
                         )
                         :
                         (
                             <>
-                                <img alt="avatar" src={AuthStore.avatar} width="200px"></img>
+                                <Image src={AuthStore.avatar} alt="avatar" />
                             </>
                         )}
                 </div>
             </div>
 
             <div className={styles.ProfileChange}>
-                <form onSubmit={handleSubmitEmail}>
-                    <div className={styles.field}>
-                        <Typography variant="h6" component="div">
-                            Current email: {AuthStore.email}
-                        </Typography>
-                        <TextField
-                            label="Change email"
-                            type="email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            required
-                        >
-                        </TextField>
-                    </div>
-                    <div className={styles.field}>
-                        <Button variant="contained" color="primary" type="submit">Submit</Button>
-                    </div>
-                </form>
-
-                <form onSubmit={handleSubmitName}>
-                    <div className={styles.field}>
-                        <Typography variant="h6" component="div">
-                            Current name: {AuthStore.name}
-                        </Typography>
-                        <TextField
-                            label="Change name"
-                            value={name}
-                            onChange={handleNameChange}
-                            required
-                        >
-                        </TextField>
-                    </div>
-                    <div className={styles.field}>
-                        <Button variant="contained" color="primary" type="submit">Submit</Button>
-                    </div>
-                </form>
-
-                <form onSubmit={handleSubmitNewPass}>
-                    <div className={styles.field}>
-                        <TextField
-                            label="New password"
-                            type="password"
-                            value={newPass}
-                            onChange={handleNewPassChange}
-                            required
-                        >
-                        </TextField>
-                    </div>
-                    <div className={styles.field}>
-                        <TextField
-                            label="Repeat new password"
-                            type="password"
-                            value={newPassRepeat}
-                            onChange={handleNewPassRepeatChange}
-                            required
-                        >
-                        </TextField>
-                    </div>
-                    <div className={styles.field}>
-                        <Button variant="contained" color="primary" type="submit">Submit</Button>
-                    </div>
-                </form>
-
+                <HandleEmail />
+                <HandleName />
+                <HandlePassword />
             </div>
 
 
