@@ -1,20 +1,16 @@
 import { useState } from 'react';
 import styles from './registration.module.css'
-import TextField from '@mui/material/TextField/TextField';
-import Button from '@mui/material/Button/Button';
 import AuthStore from '../../store/AuthStore';
-import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
-import IconButton from '@mui/material/IconButton/IconButton';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Registration = observer(() => {
     let navigate = useNavigate();
-    
+
     const [email, setEmail] = useState('');
     const [repeatEmail, setRepeatEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -24,20 +20,20 @@ const Registration = observer(() => {
     const handleRepeatEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRepeatEmail(event.target.value);
     };
-    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(event.target.value);
+    const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLogin(event.target.value);
     };
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
-    const handlePasswordRepeatChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRepeatPassword(event.target.value);
     };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await AuthStore.registration(email, repeatEmail,username, password, repeatPassword)
-        if(AuthStore.token !== ""){
+        await AuthStore.registration(email, repeatEmail, login, password, repeatPassword)
+        if (AuthStore.token !== "") {
             return navigate("/")
         }
     };
@@ -53,78 +49,62 @@ const Registration = observer(() => {
 
     return (
         <div className={styles.registration}>
-            <form onSubmit={handleSubmit}>
-                <div className={styles.field}>
-                    <TextField
-                        label="Email"
-                        type="email"
+            <h1>Registration</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                    <label htmlFor='email'>Email</label>
+                    <input
+                        type='email'
+                        id='email'
                         value={email}
-                        autoComplete="email"
                         onChange={handleEmailChange}
-                        required
                     />
                 </div>
-                <div className={styles.field}>
-                    <TextField
-                        label="Email confirmation"
-                        type="email"
-                        autoComplete="email"
+                <div className={styles.formGroup}>
+                    <label htmlFor='email'>Repeat email</label>
+                    <input
+                        type='email'
+                        id='repeatEmail'
                         value={repeatEmail}
                         onChange={handleRepeatEmailChange}
-                        required
                     />
                 </div>
-                <div className={styles.field}>
-                    <TextField
-                        label="Username"
-                        type='username'
-                        autoComplete='username'
-                        value={username}
-                        onChange={handleUsernameChange}
-                        required
+                <div className={styles.formGroup}>
+                    <label htmlFor='email'>Login</label>
+                    <input
+                        type='text'
+                        id='login'
+                        value={login}
+                        onChange={handleLoginChange}
                     />
                 </div>
-                <div className={styles.field}>
-                    <TextField
-                        label="Password"
+                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
+                    <label htmlFor='email'>Password</label>
+                    <input
                         type={showPassword ? 'text' : 'password'}
-                        autoComplete="current-password"
+                        id='password'
                         value={password}
                         onChange={handlePasswordChange}
-                        required
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton onClick={handleTogglePasswordVisibility}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
                     />
+                    <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </button>
                 </div>
-                <div className={styles.field}>
-                    <TextField
-                        label="Password confirmation"
+                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
+                    <label htmlFor='email'>Repeat password</label>
+                    <input
                         type={showRepeatPassword ? 'text' : 'password'}
-                        autoComplete="current-password"
+                        id='repeatPassword'
                         value={repeatPassword}
-                        onChange={handlePasswordRepeatChange}
-                        required
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton onClick={handleToggleRepeatPasswordVisibility}>
-                                        {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
+                        onChange={handleRepeatPasswordChange}
                     />
+                    <button type="button" className={styles.showPasswordButton} onClick={handleToggleRepeatPasswordVisibility}>
+                        {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                    </button>
                 </div>
-                <div className={styles.field}>
-                    <Button variant="contained" color="primary" type='submit'>Submit</Button>
-                </div>
+                <button type="submit" className={styles.submitButton}>
+                    Registration
+                </button>
             </form>
         </div>
     )
