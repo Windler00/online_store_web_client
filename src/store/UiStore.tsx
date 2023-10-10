@@ -1,5 +1,5 @@
-import Alert from '@mui/material/Alert/Alert';
 import { action, makeAutoObservable, observable } from 'mobx';
+import { AiOutlineClose } from "react-icons/ai";
 
 class UiStore {
     constructor() {
@@ -11,9 +11,10 @@ class UiStore {
     @action
     AddSuccessAlert(message: string) {
         const alert = (
-            <Alert severity="success" key={Date.now()} onClose={() => this.RemoveAlert(message)}>
-                {message}
-            </Alert>
+            <div className='success' key={Date.now()}>
+                <p className='success-message'>{message}</p>
+                <button className='success-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            </div>
         )
         this.AlertStore.push(alert)
 
@@ -26,9 +27,10 @@ class UiStore {
     @action
     AddInfoAlert(message: string) {
         const alert = (
-            <Alert severity="info" key={Date.now()} onClose={() => this.RemoveAlert(message)}>
-                {message}
-            </Alert>
+            <div className='info' key={Date.now()}>
+                <p className='info-message'>{message}</p>
+                <button className='info-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            </div>
         )
         this.AlertStore.push(alert)
 
@@ -41,9 +43,10 @@ class UiStore {
     @action
     AddWarningAlert(message: string) {
         const alert = (
-            <Alert severity="warning" key={Date.now()} onClose={() => this.RemoveAlert(message)}>
-                {message}
-            </Alert>
+            <div className='warning' key={Date.now()}>
+                <p className='warning-message'>{message}</p>
+                <button className='warning-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            </div>
         )
         this.AlertStore.push(alert)
 
@@ -56,9 +59,10 @@ class UiStore {
     @action
     AddErrorAlert(message: string) {
         const alert = (
-            <Alert severity="error" key={Date.now()} onClose={() => this.RemoveAlert(message)}>
-                {message}
-            </Alert>
+            <div className='error' key={Date.now()}>
+                <p className='error-message'>{message}</p>
+                <button className='error-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            </div>
         )
         this.AlertStore.push(alert)
 
@@ -70,7 +74,7 @@ class UiStore {
     }
 
     @action
-    RemoveAlert(message: string){
+    RemoveAlert(message: string) {
         this.AlertStore.splice(this.AlertStore.indexOf(message, 1))
     }
 
