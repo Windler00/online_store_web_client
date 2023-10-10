@@ -3,7 +3,7 @@ import styles from './registration.module.css'
 import AuthStore from '../../store/AuthStore';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {AiFillEyeInvisible, AiFillEye} from "react-icons/ai";
 
 const Registration = observer(() => {
     let navigate = useNavigate();
@@ -87,7 +87,7 @@ const Registration = observer(() => {
                         onChange={handlePasswordChange}
                     />
                     <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        {showPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
                 <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
@@ -99,7 +99,7 @@ const Registration = observer(() => {
                         onChange={handleRepeatPasswordChange}
                     />
                     <button type="button" className={styles.showPasswordButton} onClick={handleToggleRepeatPasswordVisibility}>
-                        {showRepeatPassword ? <VisibilityOff /> : <Visibility />}
+                        {showRepeatPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
                 <button type="submit" className={styles.submitButton}>

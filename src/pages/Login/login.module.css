@@ -12,7 +12,10 @@
 }
 
 .formGroup {
+    position: relative;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }
 
 label {
@@ -27,6 +30,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     transition: border-color 0.3s;
+    margin-left: 4px;
 }
 
 input:focus {
@@ -45,4 +49,26 @@ input:focus {
 
 .submitButton:hover {
     background-color: #0056b3;
+}
+
+.showPasswordButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 6px;
+}
+
+.showPasswordButton svg {
+    width: 24px;
+    height: 24px;
+}
+
+.showPasswordIcon {
+    color: #666;
+    font-size: 18px;
+}
+
+.showPasswordIcon:hover {
+    color: #333;
 }

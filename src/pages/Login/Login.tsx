@@ -3,6 +3,7 @@ import styles from './login.module.css'
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = observer(() => {
     let navigate = useNavigate();
@@ -25,6 +26,12 @@ const Login = observer(() => {
             return navigate("/")
         }
     };
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className={styles.login}>
             <h1>Login</h1>
@@ -38,14 +45,17 @@ const Login = observer(() => {
                         onChange={handleEmailChange}
                     />
                 </div>
-                <div className={styles.formGroup}>
+                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
                     <label htmlFor="password">Password</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="password"
                         value={password}
                         onChange={handlePasswordChange}
                     />
+                    <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                        {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                    </button>
                 </div>
                 <button type="submit" className={styles.submitButton}>
                     Log In
