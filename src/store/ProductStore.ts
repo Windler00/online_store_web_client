@@ -2,7 +2,6 @@ import { action, makeAutoObservable, observable } from "mobx";
 import apiUrl from "../config";
 import UiStore from "./UiStore";
 import AuthStore from "./AuthStore";
-import { Message } from "@mui/icons-material";
 
 
 type Product = {

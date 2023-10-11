@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import AuthStore from '../../store/AuthStore'
 import { useEffect, useRef, useState } from 'react'
+import {AiOutlineCaretDown, AiOutlineCaretUp} from "react-icons/ai";
 
 const Header = observer(() => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -47,7 +48,7 @@ const Header = observer(() => {
                     :
                     (
                         <div className={styles.right} ref={dropdownRef}>
-                            <button onClick={handleClick}>{AuthStore.email}</button>
+                            <button onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp className={styles.DropdownIcon}/>) : (<AiOutlineCaretDown className={styles.DropdownIcon}/>)}</button>
                             {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
                                 <li><Link to="/profile">Profile</Link></li>
                                 {AuthStore.role === "Admin" ? (
