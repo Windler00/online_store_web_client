@@ -26,6 +26,7 @@ const Product = observer(() => {
             </div>
             <div className={styles.ProductInfo}>
                 <h3>{ProductStore.name}</h3>
+                
                 <p>{ProductStore.description}</p>
                 <button>Buy</button>
             </div>

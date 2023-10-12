@@ -21,7 +21,8 @@ const Seller = observer(() => {
         setProductDescription(event.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event:any) => {
+        event.preventDefault();
         ProductStore.createProduct(productName, productDescription)
     }
 
