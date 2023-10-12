@@ -29,7 +29,9 @@
 }
 
 .Form input {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -41,7 +43,7 @@
     border-color: #007bff;
 }
 
-.Form button {
+.SubmitButton {
     background-color: #007bff;
     color: #fff;
     padding: 10px 16px;
@@ -51,6 +53,25 @@
     transition: background-color 0.3s;
 }
 
-.Form button:hover {
+.SubmitButton:hover {
     background-color: #0056b3;
+}
+
+.showPasswordButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 6px;
+}
+
+.showPasswordButton svg {
+    width: 24px;
+    height: 24px;
+}
+
+.InputWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
 }

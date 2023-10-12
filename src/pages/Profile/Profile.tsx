@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import Image from "../../components/Image/Image"
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 
 const Profile = observer(() => {
@@ -33,8 +34,8 @@ const Profile = observer(() => {
                         id="email"
                         value={email}
                         onChange={handleEmailChange} />
-                    <button type="submit" onClick={handleSubmitEmail}>Submit</button>
                 </form>
+                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitEmail}>Submit</button>
             </div>
         )
     })
@@ -59,7 +60,7 @@ const Profile = observer(() => {
                         value={name}
                         onChange={handleNameChange} />
                 </form>
-                <button type="submit" onClick={handleSubmitName}>Submit</button>
+                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitName}>Submit</button>
             </div>
         )
     })
@@ -80,24 +81,44 @@ const Profile = observer(() => {
             event.preventDefault();
             AuthStore.changePass(newPass, newPassRepeat)
         };
+
+        const [showPassword, setShowPassword] = useState(false);
+        const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+        const handleTogglePasswordVisibility = () => {
+            setShowPassword(!showPassword);
+        };
+        const handleToggleRepeatPasswordVisibility = () => {
+            setShowRepeatPassword(!showRepeatPassword);
+        };
+
         return (
             <div className={styles.Form}>
                 <form>
                     <label>Change password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={newPass}
-                        onChange={handleNewPassChange}
-                    />
-                    <input
-                        type="password"
-                        id="repeatPassword"
-                        value={newPassRepeat}
-                        onChange={handleNewPassRepeatChange}
-                    />
-                    <button type="submit" onClick={handleSubmitNewPass}>Submit</button>
+                    <div className={styles.InputWrapper}>
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            id="password"
+                            value={newPass}
+                            onChange={handleNewPassChange}
+                        />
+                        <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                            {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </button>
+                    </div>
+                    <div className={styles.InputWrapper}>
+                        <input
+                            type={showRepeatPassword ? 'text' : 'password'}
+                            id="repeatPassword"
+                            value={newPassRepeat}
+                            onChange={handleNewPassRepeatChange}
+                        />
+                        <button type="button" className={styles.showPasswordButton} onClick={handleToggleRepeatPasswordVisibility}>
+                            {showRepeatPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                        </button></div>
+
                 </form>
+                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitNewPass}>Submit</button>
             </div>
         )
     })
