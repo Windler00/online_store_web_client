@@ -14,7 +14,7 @@ class AuthStore {
     @observable name: string = "";
     @observable role: string = "";
     @observable avatar: string = "";
-    @observable users:any[] = [];
+    @observable users: any[] = [];
 
     @action
     registration = async (email: string, repeatEmail: string, username: string, password: string, repeatPassword: string) => {
@@ -196,17 +196,17 @@ class AuthStore {
             const data = await (await response).json();
             this.users = data;
         }
-        catch (error:any) {
+        catch (error: any) {
             UiStore.AddErrorAlert("Failed to fetch users:" + error)
         }
     }
 
     @action
-    changeRole = async(id:number, role:string) => {
-        try{
+    changeRole = async (id: number, role: string) => {
+        try {
             const body = {
-                id:id,
-                role:role
+                id: id,
+                role: role
             }
             const response = fetch(apiUrl + "auth/changerole", {
                 method: 'POST',
@@ -221,8 +221,33 @@ class AuthStore {
                 UiStore.AddSuccessAlert(data.message)
             }
         }
-        catch(error:any){
+        catch (error: any) {
             UiStore.AddErrorAlert(error)
+        }
+    }
+
+    @action
+    uploadAvatar = async (file: any) => {
+        let data: any
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = fetch(apiUrl + "auth/uploadavatar", {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Bearer ${this.token}`
+                }),
+                body: formData
+            })
+            await response
+            if ((await response).ok) {
+                data = await (await response).json();
+                this.avatar = data.avatar
+                UiStore.AddSuccessAlert(data.message)
+            }
+        }
+        catch (error: any) {
+            console.log(error);
         }
     }
 }
