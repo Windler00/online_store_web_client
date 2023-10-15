@@ -22,7 +22,8 @@ const Profile = observer(() => {
         setSelectedFile(file);
     };
 
-    function handleSubmitAvatar() {
+    function handleSubmitAvatar(event: any) {
+        event.preventDefault();
         AuthStore.uploadAvatar(selectedFile)
     }
 
@@ -154,7 +155,7 @@ const Profile = observer(() => {
                 <div className={styles.InputFileWrapper}>
                     <form>
                         <input className={styles.FileInput} type="file" onChange={handleFileChange} />
-                        <button className={styles.FileInputButton} onClick={handleSubmitAvatar}>Submit</button>
+                        <button className={styles.SubmitButton} onClick={handleSubmitAvatar}>Submit</button>
                     </form>
                 </div>
             </div>
