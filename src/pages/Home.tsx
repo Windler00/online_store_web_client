@@ -13,7 +13,7 @@ const Home = observer(() => {
                 result.push(
                     <>
                         <Link key={product.id} to={"/product/" + product.id}>
-                            <div className={styles.ProductCard}>
+                            <div key={product.id} className={styles.ProductCard}>
                                 <img src={image} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>

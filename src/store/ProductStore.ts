@@ -36,7 +36,6 @@ class ProductStore {
                 body: JSON.stringify(body)
             })
             const data = await (await response).json()
-
             this.products = []
             data.map((product: any) => {
                 let newProduct: Product = {
@@ -77,11 +76,11 @@ class ProductStore {
     }
 
     @action
-    createProduct = async (name:string, description:string) => {
-        try{
+    createProduct = async (name: string, description: string) => {
+        try {
             const body = {
-                name:name,
-                description:description
+                name: name,
+                description: description
             }
 
             const response = fetch(apiUrl + 'product/createproduct', {
@@ -93,10 +92,67 @@ class ProductStore {
                 body: JSON.stringify(body)
             })
             const data = await (await response).json()
-            if (data.message === "Product added"){
+            if (data.message === "Product added") {
+                UiStore.AddSuccessAlert(data.message)
+                this.id = data.product.id
+                this.name = data.product.name
+                this.description = data.product.description
+            }
+            else {
+                UiStore.AddErrorAlert(data.message)
+            }
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error)
+        }
+    }
+
+    @action
+    uploadImage = async (file: any, id: any) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = fetch(apiUrl + "product/uploadimage?id=" + id, {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Bearer ${AuthStore.token}`
+                }),
+                body: formData
+            })
+            await response
+            if ((await response).ok) {
+                const data = await (await response).json();
                 UiStore.AddSuccessAlert(data.message)
             }
-            else{
+        }
+        catch (error: any) {
+            console.log(error);
+        }
+    }
+
+    @action
+    changeProduct = async (id: number, name: string, description: string) => {
+        try {
+            const body = {
+                id: id,
+                name: name,
+                description: description
+            }
+
+            const response = fetch(apiUrl + 'product/changeproduct', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${AuthStore.token}`
+                },
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json()
+            if (data.message === "Product changed") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else {
                 UiStore.AddErrorAlert(data.message)
             }
         }

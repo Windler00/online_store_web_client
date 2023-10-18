@@ -228,7 +228,6 @@ class AuthStore {
 
     @action
     uploadAvatar = async (file: any) => {
-        let data: any
         try {
             const formData = new FormData();
             formData.append('file', file);
@@ -241,7 +240,7 @@ class AuthStore {
             })
             await response
             if ((await response).ok) {
-                data = await (await response).json();
+                const data = await (await response).json();
                 this.avatar = data.avatar
                 UiStore.AddSuccessAlert(data.message)
             }
