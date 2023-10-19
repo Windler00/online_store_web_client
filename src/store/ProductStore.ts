@@ -160,6 +160,34 @@ class ProductStore {
             UiStore.AddErrorAlert(error)
         }
     }
+
+    @action
+    deleteProduct = async () => {
+        try {
+            const body = {
+                name: this.name,
+                description: this.description
+            }
+            const response = fetch(apiUrl + 'product/deleteproduct', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${AuthStore.token}`
+                },
+                body: JSON.stringify(body)
+            })
+            const data = await (await response).json()
+            if (data.message === "Product deleted") {
+                UiStore.AddSuccessAlert(data.message)
+            }
+            else {
+                UiStore.AddErrorAlert(data.message)
+            }
+        }
+        catch (error: any) {
+            UiStore.AddErrorAlert(error)
+        }
+    }
 }
 
 export default new ProductStore();

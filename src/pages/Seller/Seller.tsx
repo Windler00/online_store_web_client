@@ -74,6 +74,12 @@ const Seller = observer(() => {
         ProductStore.getProducts(0, 30)
     }
 
+    const deleteProductSubmit = async (event: any) => {
+        event.preventDefault();
+        await ProductStore.deleteProduct();
+        await ProductStore.getProducts(0, 30)
+    }
+
     const HandleProducts = observer(() => {
         const image = "https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png"
         let result: any[] = [];
@@ -116,7 +122,7 @@ const Seller = observer(() => {
             </div>)
                 :
                 (<div className={styles.ChangeProduct}>
-                    <button disabled={createProduct} onClick={handleSetCreateProduct}>Create product</button>
+                    <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
                     <h1>Change product</h1>
                     <label>Product id*</label>
                     <input value={productId} onChange={handleProductIdChange}></input>
@@ -125,7 +131,10 @@ const Seller = observer(() => {
                     <label>Product description *</label>
                     <input value={productDescription} onChange={handleProductDescriptionChange} />
                     <input type="file" onChange={handleFileChange} />
-                    <button onClick={changeProductSubmit}>Submit</button>
+                    <div>
+                        <button onClick={changeProductSubmit}>Submit</button>
+                        <button onClick={deleteProductSubmit}>Delete</button>
+                    </div>
                 </div>)}
         </div>
     )
