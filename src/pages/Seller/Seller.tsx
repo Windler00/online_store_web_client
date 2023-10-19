@@ -81,7 +81,6 @@ const Seller = observer(() => {
     }
 
     const HandleProducts = observer(() => {
-        const image = "https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png"
         let result: any[] = [];
         if (ProductStore.products !== undefined) {
             ProductStore.products?.map((product =>
@@ -89,7 +88,7 @@ const Seller = observer(() => {
                     <>
                         <button key={product.id} onClick={() => handleSelectProduct(product.id, product.name, product.description)}>
                             <div key={product.id} className={styles.ProductCard}>
-                                <img src={image} alt="Product image" />
+                                <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                             </div>

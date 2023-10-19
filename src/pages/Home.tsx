@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './home.module.css'
 
+
 const Home = observer(() => {
     const HandleProducts = observer(() => {
-        const image = "https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png"
         let result: any[] = [];
         if (ProductStore.products !== undefined) {
             ProductStore.products?.map((product =>
@@ -14,7 +14,7 @@ const Home = observer(() => {
                     <>
                         <Link key={product.id} to={"/product/" + product.id}>
                             <div key={product.id} className={styles.ProductCard}>
-                                <img src={image} alt="Product image" />
+                                <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                             </div>
@@ -36,6 +36,8 @@ const Home = observer(() => {
             ProductStore.getProducts(0, 30)
         }
         fetch()
+
+
     }, [])
 
     return (

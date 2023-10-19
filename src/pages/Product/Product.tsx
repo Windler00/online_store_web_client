@@ -9,7 +9,6 @@ import Image from "../../components/Image/Image"
 const Product = observer(() => {
     let { ProductId } = useParams();
 
-    const image = "https://img.ixbt.site/live/topics/preview/00/01/67/69/c989bed929.png"
 
     useEffect(() => {
         const fetch = async () => {
@@ -22,11 +21,11 @@ const Product = observer(() => {
     return (
         <div className={styles.Product}>
             <div className={styles.Img}>
-                <Image src={image} alt="Product image"></Image>
+                <Image src={ProductStore.imageUrl} alt="Product image"></Image>
             </div>
             <div className={styles.ProductInfo}>
                 <h3>{ProductStore.name}</h3>
-                
+
                 <p>{ProductStore.description}</p>
                 <button>Buy</button>
             </div>

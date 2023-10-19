@@ -8,6 +8,7 @@ type Product = {
     id: number;
     name: string;
     description: string;
+    imageUrl: string;
 }
 
 class ProductStore {
@@ -15,6 +16,7 @@ class ProductStore {
     @observable id?: number
     @observable name?: string;
     @observable description?: string;
+    @observable imageUrl: string = "";
 
     constructor() {
         makeAutoObservable(this);
@@ -41,7 +43,8 @@ class ProductStore {
                 let newProduct: Product = {
                     id: product.id,
                     name: product.name,
-                    description: product.description
+                    description: product.description,
+                    imageUrl: product.imageUrl
                 };
                 this.products.push(newProduct);
             })
@@ -69,6 +72,7 @@ class ProductStore {
             this.id = data.id;
             this.name = data.name;
             this.description = data.description;
+            this.imageUrl = data.imageUrl;
         }
         catch (error: any) {
             UiStore.AddErrorAlert(error)
