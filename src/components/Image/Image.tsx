@@ -19,9 +19,9 @@ const Image: React.FC<ImageProps> = ({ src, alt }) => {
                 src={src}
                 alt={alt}
                 onClick={handleClick}
-                className={zoomed ? styles.zoomed : ''}
+                className={zoomed ? styles.Zoomed : styles.Normal}
             />
-            {zoomed && <div className={styles['zoomed-overlay']} onClick={handleClick} />}
+            {zoomed && <div className={styles.ZoomedOverlay} onClick={handleClick} />}
         </div>
 
     );

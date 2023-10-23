@@ -17,37 +17,35 @@ class ProductStore {
     @observable name?: string;
     @observable description?: string;
     @observable imageUrl: string = "";
+    @observable quantity: number = 0;
+    @observable pages: number = 0;
+    @observable currentPage: number = 1;
+    @observable pageSize: number = 10;
 
     constructor() {
         makeAutoObservable(this);
     }
 
     @action
-    getProducts = async (first: number, last: number) => {
+    getProducts = async (page: number, pageSize: number) => {
         try {
             const body = {
-                first: first,
-                last: last,
+                page: page,
+                pageSize: pageSize,
             }
 
-            const response = fetch(apiUrl + 'product/getproducts', {
+            const response = fetch(apiUrl + 'product/getproducts?page='+ page + '&pageSize=' + pageSize, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(body)
             })
             const data = await (await response).json()
-            this.products = []
-            data.map((product: any) => {
-                let newProduct: Product = {
-                    id: product.id,
-                    name: product.name,
-                    description: product.description,
-                    imageUrl: product.imageUrl
-                };
-                this.products.push(newProduct);
-            })
+            this.quantity = data.totalCount
+            this.pages = data.totalPages
+            this.currentPage = data.currentPage
+            this.pageSize = data.pageSize
+            this.products = data.products
         }
         catch (error: any) {
             UiStore.AddErrorAlert(error)

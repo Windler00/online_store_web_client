@@ -1,85 +1,36 @@
-.Seller{
-    display: flex;
-    flex-direction: row;
-}
-.Img img{
-    display: flex;
-    max-width: 600px;
-    max-height: 600px;
-}
-.Form {
-    margin-bottom: 16px;
-    margin-left: 16px;
-}
-
-.Form label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.Form input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-    margin-bottom: 8px;
-}
-
-.Form input:focus {
-    border-color: #007bff;
-}
-
-.Form button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.Form button:hover {
-    background-color: #0056b3;
-}
-
-.InputWrapper {
-    position: relative;
+.Seller {
     display: flex;
     flex-direction: row;
 }
 
-.FileInput {
-    display: flex;
-    margin-right: 24px;
-}
-
-.InputFileWrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 8px;
-}
-
-.FileInputLabel {
-    margin-left: 8px;
-}
-
-.InputFileWrapper input {
-    border-radius: none;
-    border: none;
-    margin-left: 0;
-    padding-left: 0;
-}
-
-
-.Products{
+.Products {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     width: 50%;
+}
+
+.Products button {
+    background: none;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    color: #333;
+    margin: 4px;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 2px;
+    border: 1px solid #cccccc;
+}
+
+.Products button:hover {
+    background-color: lightgray;
+    transition: background-color 0.3s ease;
 }
 
 .ProductCard {
@@ -109,4 +60,47 @@
 .ProductCard p {
     font-size: 14px;
     color: #888;
+}
+
+
+.ChangeProduct button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 4px;
+}
+
+.ChangeProduct button:hover {
+    background-color: #0056b3;
+}
+
+.CreateProduct button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 4px;
+}
+
+.CreateProduct button:hover {
+    background-color: #0056b3;
+}
+
+.CreateProduct input {
+    display: flex;
+    margin: 8px;
+}
+
+.InputFileWrapper input {
+    border-radius: none;
+    border: none;
+    margin-left: 0;
+    padding-left: 0;
 }

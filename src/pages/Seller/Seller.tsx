@@ -111,29 +111,37 @@ const Seller = observer(() => {
                 <HandleProducts />
             </div>
             {createProduct ? (<div className={styles.CreateProduct}>
-                <h1>Create product</h1>
-                <label>Product name *</label>
-                <input value={productName} onChange={handleProductNameChange} />
-                <label>Product description *</label>
-                <input value={productDescription} onChange={handleProductDescriptionChange} />
-                <input type="file" onChange={handleFileChange} />
-                <button onClick={createProductSubmit}>Submit</button>
-            </div>)
-                :
-                (<div className={styles.ChangeProduct}>
-                    <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
-                    <h1>Change product</h1>
-                    <label>Product id*</label>
-                    <input value={productId} onChange={handleProductIdChange}></input>
+                <form>
+                    <h1>Create product</h1>
                     <label>Product name *</label>
                     <input value={productName} onChange={handleProductNameChange} />
                     <label>Product description *</label>
                     <input value={productDescription} onChange={handleProductDescriptionChange} />
-                    <input type="file" onChange={handleFileChange} />
-                    <div>
-                        <button onClick={changeProductSubmit}>Submit</button>
-                        <button onClick={deleteProductSubmit}>Delete</button>
+                    <div className={styles.InputFileWrapper}>
+                        <input type="file" onChange={handleFileChange} />
                     </div>
+                    <button type="submit" onClick={createProductSubmit}>Submit</button>
+                </form>
+            </div>)
+                :
+                (<div className={styles.ChangeProduct}>
+                    <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
+                    <form>
+                        <h1>Change product</h1>
+                        <label>Product id*</label>
+                        <input value={productId} onChange={handleProductIdChange}></input>
+                        <label>Product name *</label>
+                        <input value={productName} onChange={handleProductNameChange} />
+                        <label>Product description *</label>
+                        <input value={productDescription} onChange={handleProductDescriptionChange} />
+                        <div className={styles.InputFileWrapper}>
+                            <input type="file" onChange={handleFileChange} />
+                        </div>
+                        <div>
+                            <button type="submit" onClick={changeProductSubmit}>Submit</button>
+                            <button onClick={deleteProductSubmit}>Delete</button>
+                        </div>
+                    </form>
                 </div>)}
         </div>
     )

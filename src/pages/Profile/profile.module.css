@@ -74,22 +74,11 @@
     height: 24px;
 }
 
-.InputWrapper {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-}
-
 .FileInput {
     display: flex;
     margin-right: 24px;
 }
 
-.InputFileWrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 8px;
-}
 
 .FileInputLabel {
     margin-left: 8px;

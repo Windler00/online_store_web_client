@@ -1,8 +1,8 @@
-.Image{
+.Image {
     display: flex;
 }
 
-.zoomed {
+.Zoomed {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -13,7 +13,7 @@
     z-index: 9999;
 }
 
-.zoomed-overlay {
+.ZoomedOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -21,8 +21,13 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 9998;
+    cursor: zoom-out;
 }
 
-.Image img {
-    cursor:zoom-in;
+.Normal {
+    cursor: zoom-in;
+}
+
+.Zoomed img {
+    cursor: zoom-out;
 }
