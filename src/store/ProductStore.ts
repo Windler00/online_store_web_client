@@ -29,11 +29,6 @@ class ProductStore {
     @action
     getProducts = async (page: number, pageSize: number) => {
         try {
-            const body = {
-                page: page,
-                pageSize: pageSize,
-            }
-
             const response = fetch(apiUrl + 'product/getproducts?page='+ page + '&pageSize=' + pageSize, {
                 method: 'POST',
                 headers: {

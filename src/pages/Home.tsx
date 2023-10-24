@@ -13,15 +13,15 @@ const Home = observer(() => {
         if (ProductStore.products !== undefined) {
             ProductStore.products?.map((product =>
                 result.push(
-                    <>
-                        <Link key={product.id} to={"/product/" + product.id}>
-                            <div key={product.id} className={styles.ProductCard}>
+                    <div className={styles.Product} key={product.id}>
+                        <Link to={"/product/" + product.id}>
+                            <div className={styles.ProductCard}>
                                 <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                             </div>
                         </Link >
-                    </>
+                    </div>
                 )
             ))
         }

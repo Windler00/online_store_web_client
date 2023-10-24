@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 const Seller = observer(() => {
     useEffect(() => {
         const fetch = async () => {
-            ProductStore.getProducts(0, 30)
+            ProductStore.getProducts(1, 10)
         }
         fetch()
     }, [])
@@ -60,7 +60,7 @@ const Seller = observer(() => {
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
         }
-        ProductStore.getProducts(0, 30)
+        ProductStore.getProducts(1, 10)
     }
 
     const changeProductSubmit = async (event: any) => {
@@ -71,13 +71,13 @@ const Seller = observer(() => {
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
         }
-        ProductStore.getProducts(0, 30)
+        ProductStore.getProducts(1, 10)
     }
 
     const deleteProductSubmit = async (event: any) => {
         event.preventDefault();
         await ProductStore.deleteProduct();
-        await ProductStore.getProducts(0, 30)
+        await ProductStore.getProducts(1, 10)
     }
 
     const HandleProducts = observer(() => {
@@ -104,32 +104,36 @@ const Seller = observer(() => {
         )
     })
 
+    const decreasePage = async () => {
+        if (ProductStore.currentPage >= 1) {
+            ProductStore.getProducts(ProductStore.currentPage - 1, ProductStore.pageSize)
+        }
+    }
+
+    const increasePage = async () => {
+        if (ProductStore.currentPage <= ProductStore.pages) {
+            ProductStore.getProducts(ProductStore.currentPage + 1, ProductStore.pageSize)
+        }
+    }
+
+    const handlerChangeCurrentPage = async (event: any) => {
+        if (event.target.value >= 1 && event.target.value <= ProductStore.pages) {
+            ProductStore.getProducts(event.target.value, ProductStore.pageSize)
+        }
+    }
+
     return (
-        <div className={styles.Seller}>
-            {AuthStore.role !== "Seller" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />) : (<></>)}
-            <div className={styles.Products}>
-                <HandleProducts />
-            </div>
-            {createProduct ? (<div className={styles.CreateProduct}>
-                <form>
-                    <h1>Create product</h1>
-                    <label>Product name *</label>
-                    <input value={productName} onChange={handleProductNameChange} />
-                    <label>Product description *</label>
-                    <input value={productDescription} onChange={handleProductDescriptionChange} />
-                    <div className={styles.InputFileWrapper}>
-                        <input type="file" onChange={handleFileChange} />
+        <div>
+            <div className={styles.Seller}>
+                {AuthStore.role !== "Seller" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />) : (<></>)}
+                <>
+                    <div className={styles.Products}>
+                        <HandleProducts />
                     </div>
-                    <button type="submit" onClick={createProductSubmit}>Submit</button>
-                </form>
-            </div>)
-                :
-                (<div className={styles.ChangeProduct}>
-                    <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
+                </>
+                {createProduct ? (<div className={styles.CreateProduct}>
                     <form>
-                        <h1>Change product</h1>
-                        <label>Product id*</label>
-                        <input value={productId} onChange={handleProductIdChange}></input>
+                        <h1>Create product</h1>
                         <label>Product name *</label>
                         <input value={productName} onChange={handleProductNameChange} />
                         <label>Product description *</label>
@@ -137,12 +141,36 @@ const Seller = observer(() => {
                         <div className={styles.InputFileWrapper}>
                             <input type="file" onChange={handleFileChange} />
                         </div>
-                        <div>
-                            <button type="submit" onClick={changeProductSubmit}>Submit</button>
-                            <button onClick={deleteProductSubmit}>Delete</button>
-                        </div>
+                        <button type="submit" onClick={createProductSubmit}>Submit</button>
                     </form>
-                </div>)}
+                </div>)
+                    :
+                    (<div className={styles.ChangeProduct}>
+                        <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
+                        <form>
+                            <h1>Change product</h1>
+                            <label>Product id*</label>
+                            <input value={productId} onChange={handleProductIdChange}></input>
+                            <label>Product name *</label>
+                            <input value={productName} onChange={handleProductNameChange} />
+                            <label>Product description *</label>
+                            <input value={productDescription} onChange={handleProductDescriptionChange} />
+                            <div className={styles.InputFileWrapper}>
+                                <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div>
+                                <button type="submit" onClick={changeProductSubmit}>Submit</button>
+                                <button onClick={deleteProductSubmit}>Delete</button>
+                            </div>
+                        </form>
+                    </div>)}
+            </div>
+            <div className={styles.PagesNav}>
+                {ProductStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
+                <input type="text" value={ProductStore.currentPage} onChange={handlerChangeCurrentPage}></input>
+                {ProductStore.currentPage === ProductStore.pages ? <button disabled>Next</button> : <button onClick={() => increasePage()}>Next</button>}
+                <p>Pages 1 - {ProductStore.pages}</p>
+            </div>
         </div>
     )
 })

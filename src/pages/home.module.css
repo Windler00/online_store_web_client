@@ -59,3 +59,10 @@
 .PagesNav button:hover {
     background-color: #0056b3;
 }
+
+.Product{
+    display: flex;
+    width: 294px;
+    height: 342px;
+    margin: 2px;
+}
