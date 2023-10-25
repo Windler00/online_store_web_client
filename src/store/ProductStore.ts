@@ -8,6 +8,7 @@ type Product = {
     id: number;
     name: string;
     description: string;
+    price: number;
     imageUrl: string;
 }
 
@@ -16,6 +17,7 @@ class ProductStore {
     @observable id?: number
     @observable name?: string;
     @observable description?: string;
+    @observable price?: number;
     @observable imageUrl: string = "";
     @observable quantity: number = 0;
     @observable pages: number = 0;
@@ -65,6 +67,7 @@ class ProductStore {
             this.id = data.id;
             this.name = data.name;
             this.description = data.description;
+            this.price = data.price;
             this.imageUrl = data.imageUrl;
         }
         catch (error: any) {
@@ -73,11 +76,12 @@ class ProductStore {
     }
 
     @action
-    createProduct = async (name: string, description: string) => {
+    createProduct = async (name: string, description: string, price: number) => {
         try {
             const body = {
                 name: name,
-                description: description
+                description: description,
+                price: price
             }
 
             const response = fetch(apiUrl + 'product/createproduct', {
@@ -94,6 +98,7 @@ class ProductStore {
                 this.id = data.product.id
                 this.name = data.product.name
                 this.description = data.product.description
+                this.price = data.product.price
             }
             else {
                 UiStore.AddErrorAlert(data.message)
@@ -129,12 +134,13 @@ class ProductStore {
     }
 
     @action
-    changeProduct = async (id: number, name: string, description: string) => {
+    changeProduct = async (id: number, name: string, description: string, price: number) => {
         try {
             const body = {
                 id: id,
                 name: name,
-                description: description
+                description: description,
+                price: price
             }
 
             const response = fetch(apiUrl + 'product/changeproduct', {

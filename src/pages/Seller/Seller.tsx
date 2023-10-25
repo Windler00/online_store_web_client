@@ -17,6 +17,7 @@ const Seller = observer(() => {
     const [productId, setProductId] = useState<number>();
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
+    const [productPrice, setProductPrice] = useState<number>(0);
 
     const handleProductIdChange = (event: any) => {
         setProductId(event.target.value);
@@ -30,6 +31,10 @@ const Seller = observer(() => {
         setProductDescription(event.target.value);
     };
 
+    const handleProductPriceChange = (event: any) => {
+        setProductPrice(event.target.value);
+    }
+
     const [uploadImage, setUploadImage] = useState<File | null>(null);
 
     const handleFileChange = (event: any) => {
@@ -41,6 +46,8 @@ const Seller = observer(() => {
 
     const handleSetCreateProduct = (event: any) => {
         event.preventDefault();
+        setProductName("");
+        setProductDescription("");
         setCreateProduct(true)
     }
 
@@ -56,7 +63,7 @@ const Seller = observer(() => {
 
     const createProductSubmit = async (event: any) => {
         event.preventDefault();
-        await ProductStore.createProduct(productName, productDescription)
+        await ProductStore.createProduct(productName, productDescription, productPrice)
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
         }
@@ -66,7 +73,7 @@ const Seller = observer(() => {
     const changeProductSubmit = async (event: any) => {
         event.preventDefault();
         if (productId !== undefined) {
-            await ProductStore.changeProduct(productId, productName, productDescription)
+            await ProductStore.changeProduct(productId, productName, productDescription, productPrice)
         }
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
@@ -138,6 +145,8 @@ const Seller = observer(() => {
                         <input value={productName} onChange={handleProductNameChange} />
                         <label>Product description *</label>
                         <input value={productDescription} onChange={handleProductDescriptionChange} />
+                        <label>Product price *</label>
+                        <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
                         <div className={styles.InputFileWrapper}>
                             <input type="file" onChange={handleFileChange} />
                         </div>
@@ -155,6 +164,8 @@ const Seller = observer(() => {
                             <input value={productName} onChange={handleProductNameChange} />
                             <label>Product description *</label>
                             <input value={productDescription} onChange={handleProductDescriptionChange} />
+                            <label>Product price *</label>
+                            <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
                             <div className={styles.InputFileWrapper}>
                                 <input type="file" onChange={handleFileChange} />
                             </div>

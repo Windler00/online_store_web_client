@@ -19,6 +19,7 @@ const Home = observer(() => {
                                 <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
+                                <p>{product.price} $</p>
                             </div>
                         </Link >
                     </div>
