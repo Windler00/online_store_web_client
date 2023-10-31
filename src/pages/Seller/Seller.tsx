@@ -18,6 +18,7 @@ const Seller = observer(() => {
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productPrice, setProductPrice] = useState<number>(0);
+    const [productQuantity, setProductQuantity] = useState<number>(0);
 
     const handleProductIdChange = (event: any) => {
         setProductId(event.target.value);
@@ -35,6 +36,10 @@ const Seller = observer(() => {
         setProductPrice(event.target.value);
     }
 
+    const handleProductQuantityChange = (event: any) => {
+        setProductQuantity(event.target.value);
+    }
+
     const [uploadImage, setUploadImage] = useState<File | null>(null);
 
     const handleFileChange = (event: any) => {
@@ -48,22 +53,28 @@ const Seller = observer(() => {
         event.preventDefault();
         setProductName("");
         setProductDescription("");
+        setProductPrice(0);
+        setProductQuantity(0);
         setCreateProduct(true)
     }
 
-    const handleSelectProduct = (id: number, name: string, description: string) => {
+    const handleSelectProduct = (id: number, name: string, description: string, price: number, quantity: number) => {
         ProductStore.id = id;
         ProductStore.name = name;
         ProductStore.description = description;
+        ProductStore.price = price;
+        ProductStore.quantity = quantity;
         setProductId(ProductStore.id);
         setProductName(ProductStore.name);
         setProductDescription(ProductStore.description);
+        setProductPrice(ProductStore.price);
+        setProductQuantity(ProductStore.quantity);
         setCreateProduct(false);
     }
 
     const createProductSubmit = async (event: any) => {
         event.preventDefault();
-        await ProductStore.createProduct(productName, productDescription, productPrice)
+        await ProductStore.createProduct(productName, productDescription, productPrice,productQuantity)
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
         }
@@ -73,7 +84,7 @@ const Seller = observer(() => {
     const changeProductSubmit = async (event: any) => {
         event.preventDefault();
         if (productId !== undefined) {
-            await ProductStore.changeProduct(productId, productName, productDescription, productPrice)
+            await ProductStore.changeProduct(productId, productName, productDescription, productPrice,productQuantity)
         }
         if (uploadImage !== null) {
             ProductStore.uploadImage(uploadImage, ProductStore.id)
@@ -93,7 +104,7 @@ const Seller = observer(() => {
             ProductStore.products?.map((product =>
                 result.push(
                     <>
-                        <button key={product.id} onClick={() => handleSelectProduct(product.id, product.name, product.description)}>
+                        <button key={product.id} onClick={() => handleSelectProduct(product.id, product.name, product.description, product.price, product.quantity)}>
                             <div key={product.id} className={styles.ProductCard}>
                                 <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
@@ -147,6 +158,8 @@ const Seller = observer(() => {
                         <input value={productDescription} onChange={handleProductDescriptionChange} />
                         <label>Product price *</label>
                         <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
+                        <label>Product Quantity *</label>
+                        <input type="number" value={productQuantity} onChange={handleProductQuantityChange}></input>
                         <div className={styles.InputFileWrapper}>
                             <input type="file" onChange={handleFileChange} />
                         </div>
@@ -166,6 +179,8 @@ const Seller = observer(() => {
                             <input value={productDescription} onChange={handleProductDescriptionChange} />
                             <label>Product price *</label>
                             <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
+                            <label>Product Quantity *</label>
+                            <input type="number" value={productQuantity} onChange={handleProductQuantityChange}></input>
                             <div className={styles.InputFileWrapper}>
                                 <input type="file" onChange={handleFileChange} />
                             </div>

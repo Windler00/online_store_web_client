@@ -9,6 +9,7 @@ type Product = {
     name: string;
     description: string;
     price: number;
+    quantity:number
     imageUrl: string;
 }
 
@@ -18,8 +19,9 @@ class ProductStore {
     @observable name?: string;
     @observable description?: string;
     @observable price?: number;
+    @observable quantity?: number
     @observable imageUrl: string = "";
-    @observable quantity: number = 0;
+    @observable pagesQuantity: number = 0;
     @observable pages: number = 0;
     @observable currentPage: number = 1;
     @observable pageSize: number = 10;
@@ -38,7 +40,7 @@ class ProductStore {
                 },
             })
             const data = await (await response).json()
-            this.quantity = data.totalCount
+            this.pagesQuantity = data.totalCount
             this.pages = data.totalPages
             this.currentPage = data.currentPage
             this.pageSize = data.pageSize
@@ -68,6 +70,7 @@ class ProductStore {
             this.name = data.name;
             this.description = data.description;
             this.price = data.price;
+            this.quantity = data.quantity;
             this.imageUrl = data.imageUrl;
         }
         catch (error: any) {
@@ -76,12 +79,13 @@ class ProductStore {
     }
 
     @action
-    createProduct = async (name: string, description: string, price: number) => {
+    createProduct = async (name: string, description: string, price: number, quantity:number) => {
         try {
             const body = {
                 name: name,
                 description: description,
-                price: price
+                price: price,
+                quantity:quantity
             }
 
             const response = fetch(apiUrl + 'product/createproduct', {
@@ -134,13 +138,14 @@ class ProductStore {
     }
 
     @action
-    changeProduct = async (id: number, name: string, description: string, price: number) => {
+    changeProduct = async (id: number, name: string, description: string, price: number,quantity:number) => {
         try {
             const body = {
                 id: id,
                 name: name,
                 description: description,
-                price: price
+                price: price,
+                quantity:quantity
             }
 
             const response = fetch(apiUrl + 'product/changeproduct', {
