@@ -179,22 +179,17 @@ class AuthStore {
         }
     }
     @action
-    getUsers = async (first: number, last: number) => {
+    getUsers = async (page: number, pageSize: number) => {
         try {
-            const body = {
-                first: first,
-                last: last
-            }
-            const response = fetch(apiUrl + "auth/getusers", {
-                method: 'POST',
+            const response = fetch(apiUrl + "auth/getusers?page=" + page + "&pageSize=" + pageSize, {
+                method: 'GET',
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${this.token}`
                 }),
-                body: JSON.stringify(body)
             })
             const data = await (await response).json();
-            this.users = data;
+            this.users = data.users;
         }
         catch (error: any) {
             UiStore.AddErrorAlert("Failed to fetch users:" + error)

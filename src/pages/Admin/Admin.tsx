@@ -8,7 +8,7 @@ import styles from "./admin.module.css"
 const Admin = observer(() => {
     useEffect(() => {
         const fetch = async () => {
-            AuthStore.getUsers(0, 30)
+            AuthStore.getUsers(1, 10)
         }
         if (AuthStore.role === "Admin" && AuthStore.token !== "" && AuthStore.users.length === 0) {
             fetch()

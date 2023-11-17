@@ -34,7 +34,7 @@ class ProductStore {
     getProducts = async (page: number, pageSize: number) => {
         try {
             const response = fetch(apiUrl + 'product/getproducts?page='+ page + '&pageSize=' + pageSize, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -53,16 +53,11 @@ class ProductStore {
     @action
     getProduct = async (id: string) => {
         try {
-            const body = {
-                id: id
-            }
-
-            const response = fetch(apiUrl + 'product/getproduct', {
-                method: 'POST',
+            const response = fetch(apiUrl + 'product/getproduct?id='+id, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
+                }
             })
             const data = await (await response).json()
 
@@ -71,6 +66,7 @@ class ProductStore {
             this.description = data.description;
             this.price = data.price;
             this.quantity = data.quantity;
+            console.log(data.imageIrl)
             this.imageUrl = data.imageUrl;
         }
         catch (error: any) {
