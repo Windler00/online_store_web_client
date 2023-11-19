@@ -8,7 +8,7 @@
 .Header button,
 a {
     display: flex;
-    padding: 10px 20px;
+    padding: 6px 12px;
     background-color: #f2f2f2;
     color: #333;
     text-decoration: none;
@@ -43,6 +43,7 @@ a:hover {
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 42px;
 }
 
 #Login,
@@ -54,4 +55,14 @@ a:hover {
 .DropdownIcon {
     display: flex;
     margin-left: 4px;
+}
+
+.right{
+    display: flex;
+    flex-direction: row;
+}
+
+.cart{
+    display: flex;
+    margin: 4px;
 }

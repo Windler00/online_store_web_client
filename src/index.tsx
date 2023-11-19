@@ -13,6 +13,7 @@ import Profile from './pages/Profile/Profile';
 import Product from './pages/Product/Product';
 import Admin from './pages/Admin/Admin';
 import Seller from './pages/Seller/Seller';
+import Basket from './pages/Basket/Basket';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/seller",
     element: <Layout><Seller></Seller></Layout>,
+  },
+  {
+    path: "/basket",
+    element: <Layout><Basket></Basket></Layout>,
   },
 ]);
 

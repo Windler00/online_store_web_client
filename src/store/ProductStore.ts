@@ -1,8 +1,4 @@
 import { action, makeAutoObservable, observable } from "mobx";
-import apiUrl from "../config";
-import UiStore from "./UiStore";
-import AuthStore from "./AuthStore";
-
 
 type Product = {
     id: number;
