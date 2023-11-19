@@ -3,6 +3,7 @@ import ProductStore from "../store/ProductStore"
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './home.module.css'
+import ProductApi from "../api/ProductApi";
 
 
 const Home = observer(() => {
@@ -35,26 +36,26 @@ const Home = observer(() => {
 
     const decreasePage = async () => {
         if (ProductStore.currentPage >= 1) {
-            ProductStore.getProducts(ProductStore.currentPage - 1, ProductStore.pageSize)
+            ProductApi.getProducts(ProductStore.currentPage - 1, ProductStore.pageSize)
         }
     }
 
     const increasePage = async () => {
         if (ProductStore.currentPage <= ProductStore.pages) {
-            ProductStore.getProducts(ProductStore.currentPage + 1, ProductStore.pageSize)
+            ProductApi.getProducts(ProductStore.currentPage + 1, ProductStore.pageSize)
         }
     }
 
     const handlerChangeCurrentPage = async (event:any) => {
         if(event.target.value >= 1 && event.target.value <= ProductStore.pages){
-            ProductStore.getProducts(event.target.value, ProductStore.pageSize)
+            ProductApi.getProducts(event.target.value, ProductStore.pageSize)
         }
      }
 
 
     useEffect(() => {
         const fetch = async () => {
-            ProductStore.getProducts(1, 10)
+            ProductApi.getProducts(1, 10)
         }
         fetch()
 

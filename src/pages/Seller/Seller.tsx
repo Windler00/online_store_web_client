@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import ProductStore from "../../store/ProductStore";
 import AuthStore from "../../store/AuthStore";
 import { Navigate } from "react-router-dom";
+import ProductApi from "../../api/ProductApi";
 
 
 const Seller = observer(() => {
     useEffect(() => {
         const fetch = async () => {
-            ProductStore.getProducts(1, 10)
+            ProductApi.getProducts(1, 10)
         }
         fetch()
     }, [])
@@ -74,28 +75,28 @@ const Seller = observer(() => {
 
     const createProductSubmit = async (event: any) => {
         event.preventDefault();
-        await ProductStore.createProduct(productName, productDescription, productPrice,productQuantity)
+        await ProductApi.createProduct(productName, productDescription, productPrice,productQuantity)
         if (uploadImage !== null) {
-            ProductStore.uploadImage(uploadImage, ProductStore.id)
+            ProductApi.uploadImage(uploadImage, ProductStore.id)
         }
-        ProductStore.getProducts(1, 10)
+        ProductApi.getProducts(1, 10)
     }
 
     const changeProductSubmit = async (event: any) => {
         event.preventDefault();
         if (productId !== undefined) {
-            await ProductStore.changeProduct(productId, productName, productDescription, productPrice,productQuantity)
+            await ProductApi.changeProduct(productId, productName, productDescription, productPrice,productQuantity)
         }
         if (uploadImage !== null) {
-            ProductStore.uploadImage(uploadImage, ProductStore.id)
+            ProductApi.uploadImage(uploadImage, ProductStore.id)
         }
-        ProductStore.getProducts(1, 10)
+        ProductApi.getProducts(1, 10)
     }
 
     const deleteProductSubmit = async (event: any) => {
         event.preventDefault();
-        await ProductStore.deleteProduct();
-        await ProductStore.getProducts(1, 10)
+        await ProductApi.deleteProduct();
+        await ProductApi.getProducts(1, 10)
     }
 
     const HandleProducts = observer(() => {
@@ -124,19 +125,19 @@ const Seller = observer(() => {
 
     const decreasePage = async () => {
         if (ProductStore.currentPage >= 1) {
-            ProductStore.getProducts(ProductStore.currentPage - 1, ProductStore.pageSize)
+            ProductApi.getProducts(ProductStore.currentPage - 1, ProductStore.pageSize)
         }
     }
 
     const increasePage = async () => {
         if (ProductStore.currentPage <= ProductStore.pages) {
-            ProductStore.getProducts(ProductStore.currentPage + 1, ProductStore.pageSize)
+            ProductApi.getProducts(ProductStore.currentPage + 1, ProductStore.pageSize)
         }
     }
 
     const handlerChangeCurrentPage = async (event: any) => {
         if (event.target.value >= 1 && event.target.value <= ProductStore.pages) {
-            ProductStore.getProducts(event.target.value, ProductStore.pageSize)
+            ProductApi.getProducts(event.target.value, ProductStore.pageSize)
         }
     }
 

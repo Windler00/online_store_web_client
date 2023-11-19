@@ -4,6 +4,7 @@ import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Auth from "../../api/AuthApi";
 
 const Login = observer(() => {
     let navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = observer(() => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await AuthStore.login(email, password)
+        await Auth.login(email, password)
         if (AuthStore.token !== "") {
             return navigate("/")
         }

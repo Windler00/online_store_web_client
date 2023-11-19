@@ -3,12 +3,13 @@ import AuthStore from "../../store/AuthStore";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./admin.module.css"
+import Auth from "../../api/AuthApi";
 
 
 const Admin = observer(() => {
     useEffect(() => {
         const fetch = async () => {
-            AuthStore.getUsers(1, 10)
+            Auth.getUsers(1, 10)
         }
         if (AuthStore.role === "Admin" && AuthStore.token !== "" && AuthStore.users.length === 0) {
             fetch()
@@ -20,7 +21,7 @@ const Admin = observer(() => {
 
 
         const handleRoleChange = (event: any) => {
-            AuthStore.changeRole(Props.id, event.target.value)
+            Auth.changeRole(Props.id, event.target.value)
             setRole(event.target.value)
         }
         return (

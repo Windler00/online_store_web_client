@@ -5,6 +5,7 @@ import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import Image from "../../components/Image/Image"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Auth from "../../api/AuthApi";
 
 
 const Profile = observer(() => {
@@ -24,7 +25,7 @@ const Profile = observer(() => {
 
     function handleSubmitAvatar(event: any) {
         event.preventDefault();
-        AuthStore.uploadAvatar(selectedFile)
+        Auth.uploadAvatar(selectedFile)
     }
 
     const HandleEmail = observer(() => {
@@ -35,7 +36,7 @@ const Profile = observer(() => {
         };
         const handleSubmitEmail = (event: any) => {
             event.preventDefault();
-            AuthStore.changeEmail(email)
+            Auth.changeEmail(email)
         };
         return (
             <div className={styles.Form}>
@@ -60,7 +61,7 @@ const Profile = observer(() => {
         };
         const handleSubmitName = (event: any) => {
             event.preventDefault();
-            AuthStore.changeName(name)
+            Auth.changeName(name)
         };
         return (
             <div className={styles.Form}>
@@ -91,7 +92,7 @@ const Profile = observer(() => {
         };
         const handleSubmitNewPass = (event: any) => {
             event.preventDefault();
-            AuthStore.changePass(newPass, newPassRepeat)
+            Auth.changePass(newPass, newPassRepeat)
         };
 
         const [showPassword, setShowPassword] = useState(false);
@@ -142,7 +143,7 @@ const Profile = observer(() => {
                     {AuthStore.avatar === "" ?
                         (
                             <>
-                                <Image src={process.env.PUBLIC_URL + "defaultAvatar.png"} alt="avatar" />
+                                <Image src={process.env.PUBLIC_URL + "avatar.png"} alt="avatar" />
                             </>
                         )
                         :

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ProductStore from "../../store/ProductStore";
 import Image from "../../components/Image/Image"
+import ProductApi from "../../api/ProductApi"
 
 
 const Product = observer(() => {
@@ -13,7 +14,7 @@ const Product = observer(() => {
     useEffect(() => {
         const fetch = async () => {
             if (ProductId !== undefined) {
-                ProductStore.getProduct(ProductId)
+                ProductApi.getProduct(ProductId)
             }
         }
         fetch()
