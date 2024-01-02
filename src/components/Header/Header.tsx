@@ -1,4 +1,3 @@
-import styles from './header.module.css'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import AuthStore from '../../store/AuthStore'
@@ -34,23 +33,23 @@ const Header = observer(() => {
 
 
     return (
-        <div className={styles.Header}>
-            <div className={styles.left}>
+        <div>
+            <div>
                 <Link to='/'>OnlineStore</Link>
             </div>
-            <div className={styles.right}>
+            <div>
                 {AuthStore.token === "" ? (
                     <div>
-                        <Link id={styles.Login} to='/login'>Login</Link>
-                        <Link id={styles.Registration} to='/registration'>Registration</Link>
+                        <Link to='/login'>Login</Link>
+                        <Link to='/registration'>Registration</Link>
                     </div>
                 )
                     :
                     (
-                        <div className={styles.right} ref={dropdownRef}>
-                            <Link to={"/basket"}><AiOutlineShoppingCart className={styles.cart} /></Link>
-                            <button onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp className={styles.DropdownIcon}/>) : (<AiOutlineCaretDown className={styles.DropdownIcon}/>)}</button>
-                            {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
+                        <div ref={dropdownRef}>
+                            <Link to={"/basket"}><AiOutlineShoppingCart /></Link>
+                            <button onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp/>) : (<AiOutlineCaretDown/>)}</button>
+                            {dropdownIsOpen && (<ul>
                                 <li><Link to="/profile">Profile</Link></li>
                                 {AuthStore.role === "Admin" ? (
                                     <>

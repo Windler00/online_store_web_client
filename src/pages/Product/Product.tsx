@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import styles from "./product.module.css"
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ProductStore from "../../store/ProductStore";
@@ -39,11 +38,11 @@ const Product = observer(() => {
     }
 
     return (
-        <div className={styles.Product}>
-            <div className={styles.Img}>
+        <div>
+            <div>
                 <Image src={ProductStore.imageUrl} alt="Product image"></Image>
             </div>
-            <div className={styles.ProductInfo}>
+            <div>
                 <h3>{ProductStore.name}</h3>
 
                 <p>Description: {ProductStore.description}</p>

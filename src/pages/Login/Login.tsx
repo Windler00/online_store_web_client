@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from './login.module.css'
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
@@ -34,10 +33,10 @@ const Login = observer(() => {
     };
 
     return (
-        <div className={styles.login}>
+        <div>
             <h1>Login</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
+            <form onSubmit={handleSubmit}>
+                <div>
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
@@ -46,7 +45,7 @@ const Login = observer(() => {
                         onChange={handleEmailChange}
                     />
                 </div>
-                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
+                <div>
                     <label htmlFor="password">Password</label>
                     <input
                         type={showPassword ? 'text' : 'password'}
@@ -54,11 +53,11 @@ const Login = observer(() => {
                         value={password}
                         onChange={handlePasswordChange}
                     />
-                    <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                    <button type="button" onClick={handleTogglePasswordVisibility}>
                         {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                     </button>
                 </div>
-                <button type="submit" className={styles.submitButton}>
+                <button type="submit">
                     Log In
                 </button>
             </form>

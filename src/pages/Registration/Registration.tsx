@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styles from './registration.module.css'
 import AuthStore from '../../store/AuthStore';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -49,10 +48,10 @@ const Registration = observer(() => {
     };
 
     return (
-        <div className={styles.registration}>
+        <div>
             <h1>Registration</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
+            <form onSubmit={handleSubmit}>
+                <div>
                     <label htmlFor='email'>Email</label>
                     <input
                         type='email'
@@ -61,7 +60,7 @@ const Registration = observer(() => {
                         onChange={handleEmailChange}
                     />
                 </div>
-                <div className={styles.formGroup}>
+                <div>
                     <label htmlFor='email'>Repeat email</label>
                     <input
                         type='email'
@@ -70,7 +69,7 @@ const Registration = observer(() => {
                         onChange={handleRepeatEmailChange}
                     />
                 </div>
-                <div className={styles.formGroup}>
+                <div>
                     <label htmlFor='email'>Login</label>
                     <input
                         type='text'
@@ -79,7 +78,7 @@ const Registration = observer(() => {
                         onChange={handleLoginChange}
                     />
                 </div>
-                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
+                <div>
                     <label htmlFor='email'>Password</label>
                     <input
                         type={showPassword ? 'text' : 'password'}
@@ -87,11 +86,11 @@ const Registration = observer(() => {
                         value={password}
                         onChange={handlePasswordChange}
                     />
-                    <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                    <button type="button" onClick={handleTogglePasswordVisibility}>
                         {showPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
-                <div className={`${styles.formGroup} ${styles.inputWithButton}`}>
+                <div>
                     <label htmlFor='email'>Repeat password</label>
                     <input
                         type={showRepeatPassword ? 'text' : 'password'}
@@ -99,11 +98,11 @@ const Registration = observer(() => {
                         value={repeatPassword}
                         onChange={handleRepeatPasswordChange}
                     />
-                    <button type="button" className={styles.showPasswordButton} onClick={handleToggleRepeatPasswordVisibility}>
+                    <button type="button" onClick={handleToggleRepeatPasswordVisibility}>
                         {showRepeatPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
-                <button type="submit" className={styles.submitButton}>
+                <button type="submit">
                     Registration
                 </button>
             </form>

@@ -2,7 +2,6 @@ import { observer } from "mobx-react-lite"
 import AuthStore from "../../store/AuthStore";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from "./admin.module.css"
 import Auth from "../../api/AuthApi";
 
 
@@ -25,7 +24,7 @@ const Admin = observer(() => {
             setRole(event.target.value)
         }
         return (
-            <div className={styles.RoleSelect}>
+            <div>
                 <select value={role} onChange={handleRoleChange}>
                     <option value="User">User</option>
                     <option value="Seller">Seller</option>
@@ -40,7 +39,7 @@ const Admin = observer(() => {
         <div>
             {AuthStore.role !== "Admin" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />)
                 :
-                <div className={styles.Admin}>
+                <div>
                     <table>
                         <thead>
                             <tr>

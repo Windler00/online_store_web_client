@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite"
-import styles from "./basket.module.css"
 import { useEffect, useState } from "react"
 import BasketApi from "../../api/BasketApi"
 import BasketStore from "../../store/BasketStore"
@@ -65,21 +64,21 @@ const Basket = observer(() => {
 
     return (
         <div>
-            <div className={styles.Products}>
+            <div>
                 {BasketStore.products.map((product) => (
-                    <div className={styles.BasketItem}>
+                    <div>
                         <Product product={product.product} />
                         <button onClick={() => decreaseQuantity(product.product.id, product.quantity - 1)}>-</button>
-                        <div className={styles.ItemQuantity}>{product.quantity}</div>
+                        <div>{product.quantity}</div>
                         <button onClick={() => increaseQuantity(product.product.id, product.product.quantity, product.quantity + 1)}>+</button>
                         <input value={product.product.id} onChange={handleSelectedProducts} type="checkbox"></input>
                     </div>
                 ))}
             </div>
-            <div className={styles.Buy}>
+            <div>
                 <button>Buy</button>
             </div>
-            <div className={styles.PagesNav}>
+            <div>
                 {BasketStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
                 <input type="text" value={BasketStore.currentPage} onChange={handlerChangeCurrentPage}></input>
                 {BasketStore.currentPage === BasketStore.pages ? <button disabled>Next</button> : <button onClick={() => increasePage()}>Next</button>}

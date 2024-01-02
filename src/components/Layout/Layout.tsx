@@ -1,14 +1,13 @@
 import AlertBox from '../AlertBox/AlertBox'
 import Header from '../Header/Header'
-import styles from './layout.module.css'
 
 
 export default function Layout(props: any) {
     return (
-        <div className={styles.layout}>
+        <div>
             <Header></Header>
             <AlertBox></AlertBox>
-            <div className={styles.content}>
+            <div>
                 {props.children}
             </div>
         </div>

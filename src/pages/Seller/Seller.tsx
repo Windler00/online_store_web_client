@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import styles from "./seller.module.css"
 import { useEffect, useState } from "react";
 import ProductStore from "../../store/ProductStore";
 import AuthStore from "../../store/AuthStore";
@@ -106,7 +105,7 @@ const Seller = observer(() => {
                 result.push(
                     <>
                         <button key={product.id} onClick={() => handleSelectProduct(product.id, product.name, product.description, product.price, product.quantity)}>
-                            <div key={product.id} className={styles.ProductCard}>
+                            <div key={product.id}>
                                 <img src={product.imageUrl} alt="Product image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
@@ -143,14 +142,14 @@ const Seller = observer(() => {
 
     return (
         <div>
-            <div className={styles.Seller}>
+            <div>
                 {AuthStore.role !== "Seller" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />) : (<></>)}
                 <>
-                    <div className={styles.Products}>
+                    <div>
                         <HandleProducts />
                     </div>
                 </>
-                {createProduct ? (<div className={styles.CreateProduct}>
+                {createProduct ? (<div>
                     <form>
                         <h1>Create product</h1>
                         <label>Product name *</label>
@@ -161,14 +160,14 @@ const Seller = observer(() => {
                         <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
                         <label>Product Quantity *</label>
                         <input type="number" value={productQuantity} onChange={handleProductQuantityChange}></input>
-                        <div className={styles.InputFileWrapper}>
+                        <div>
                             <input type="file" onChange={handleFileChange} />
                         </div>
                         <button type="submit" onClick={createProductSubmit}>Submit</button>
                     </form>
                 </div>)
                     :
-                    (<div className={styles.ChangeProduct}>
+                    (<div>
                         <button disabled={createProduct} onClick={handleSetCreateProduct}>Create new product</button>
                         <form>
                             <h1>Change product</h1>
@@ -182,7 +181,7 @@ const Seller = observer(() => {
                             <input type="number" value={productPrice} onChange={handleProductPriceChange}></input>
                             <label>Product Quantity *</label>
                             <input type="number" value={productQuantity} onChange={handleProductQuantityChange}></input>
-                            <div className={styles.InputFileWrapper}>
+                            <div>
                                 <input type="file" onChange={handleFileChange} />
                             </div>
                             <div>
@@ -192,7 +191,7 @@ const Seller = observer(() => {
                         </form>
                     </div>)}
             </div>
-            <div className={styles.PagesNav}>
+            <div>
                 {ProductStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
                 <input type="text" value={ProductStore.currentPage} onChange={handlerChangeCurrentPage}></input>
                 {ProductStore.currentPage === ProductStore.pages ? <button disabled>Next</button> : <button onClick={() => increasePage()}>Next</button>}

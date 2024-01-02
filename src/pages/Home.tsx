@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import ProductStore from "../store/ProductStore"
 import { observer } from "mobx-react-lite"
-import styles from './home.module.css'
 import ProductApi from "../api/ProductApi";
 import Product from "../components/Product/Product";
 
@@ -37,10 +36,10 @@ const Home = observer(() => {
     }, [])
     return (
         <div>
-            <div className={styles.Products}>
+            <div>
                 {ProductStore.products.map(product => <Product product={product}/>)}
             </div>
-            <div className={styles.PagesNav}>
+            <div>
                 {ProductStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
                 <input type="text" value={ProductStore.currentPage} onChange={handlerChangeCurrentPage}></input>
                 {ProductStore.currentPage === ProductStore.pages ? <button disabled>Next</button> : <button onClick={() => increasePage()}>Next</button>}

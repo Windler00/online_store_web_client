@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite";
-import styles from './profile.module.css'
 import { useEffect, useState } from "react";
 import AuthStore from "../../store/AuthStore";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +38,7 @@ const Profile = observer(() => {
             Auth.changeEmail(email)
         };
         return (
-            <div className={styles.Form}>
+            <div>
                 <form>
                     <label>{AuthStore.email}</label>
                     <input
@@ -48,7 +47,7 @@ const Profile = observer(() => {
                         value={email}
                         onChange={handleEmailChange} />
                 </form>
-                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitEmail}>Submit</button>
+                <button type="submit" onClick={handleSubmitEmail}>Submit</button>
             </div>
         )
     })
@@ -64,7 +63,7 @@ const Profile = observer(() => {
             Auth.changeName(name)
         };
         return (
-            <div className={styles.Form}>
+            <div>
                 <form>
                     <label>{AuthStore.name}</label>
                     <input
@@ -73,7 +72,7 @@ const Profile = observer(() => {
                         value={name}
                         onChange={handleNameChange} />
                 </form>
-                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitName}>Submit</button>
+                <button type="submit" onClick={handleSubmitName}>Submit</button>
             </div>
         )
     })
@@ -105,41 +104,41 @@ const Profile = observer(() => {
         };
 
         return (
-            <div className={styles.Form}>
+            <div>
                 <form>
                     <label>Change password</label>
-                    <div className={styles.InputWrapper}>
+                    <div>
                         <input
                             type={showPassword ? 'text' : 'password'}
                             id="password"
                             value={newPass}
                             onChange={handleNewPassChange}
                         />
-                        <button type="button" className={styles.showPasswordButton} onClick={handleTogglePasswordVisibility}>
+                        <button type="button" onClick={handleTogglePasswordVisibility}>
                             {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                         </button>
                     </div>
-                    <div className={styles.InputWrapper}>
+                    <div>
                         <input
                             type={showRepeatPassword ? 'text' : 'password'}
                             id="repeatPassword"
                             value={newPassRepeat}
                             onChange={handleNewPassRepeatChange}
                         />
-                        <button type="button" className={styles.showPasswordButton} onClick={handleToggleRepeatPasswordVisibility}>
+                        <button type="button" onClick={handleToggleRepeatPasswordVisibility}>
                             {showRepeatPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                         </button></div>
 
                 </form>
-                <button className={styles.SubmitButton} type="submit" onClick={handleSubmitNewPass}>Submit</button>
+                <button type="submit" onClick={handleSubmitNewPass}>Submit</button>
             </div>
         )
     })
 
     return (
-        <div className={styles.profile}>
-            <div className={styles.ProfileInfo}>
-                <div className={styles.avatar}>
+        <div>
+            <div>
+                <div>
                     {AuthStore.avatar === "" ?
                         (
                             <>
@@ -153,15 +152,15 @@ const Profile = observer(() => {
                             </>
                         )}
                 </div>
-                <div className={styles.InputFileWrapper}>
+                <div>
                     <form>
-                        <input className={styles.FileInput} type="file" onChange={handleFileChange} />
-                        <button className={styles.SubmitButton} onClick={handleSubmitAvatar}>Submit</button>
+                        <input type="file" onChange={handleFileChange} />
+                        <button onClick={handleSubmitAvatar}>Submit</button>
                     </form>
                 </div>
             </div>
 
-            <div className={styles.ProfileChange}>
+            <div>
                 <HandleEmail />
                 <HandleName />
                 <HandlePassword />
