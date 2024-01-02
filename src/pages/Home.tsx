@@ -1,38 +1,12 @@
 import { useEffect } from "react"
 import ProductStore from "../store/ProductStore"
 import { observer } from "mobx-react-lite"
-import { Link } from "react-router-dom";
 import styles from './home.module.css'
 import ProductApi from "../api/ProductApi";
+import Product from "../components/Product/Product";
 
 
 const Home = observer(() => {
-
-    const HandleProducts = observer(() => {
-
-        let result: any[] = [];
-        if (ProductStore.products !== undefined) {
-            ProductStore.products?.map((product =>
-                result.push(
-                    <div className={styles.Product} key={product.id}>
-                        <Link to={"/product/" + product.id}>
-                            <div className={styles.ProductCard}>
-                                <img src={product.imageUrl} alt="Product image" />
-                                <h3>{product.name}</h3>
-                                <p>{product.description}</p>
-                                <p>{product.price} $</p>
-                            </div>
-                        </Link >
-                    </div>
-                )
-            ))
-        }
-        return (
-            <>
-                {result}
-            </>
-        )
-    })
 
     const decreasePage = async () => {
         if (ProductStore.currentPage >= 1) {
@@ -61,11 +35,10 @@ const Home = observer(() => {
 
 
     }, [])
-
     return (
         <div>
             <div className={styles.Products}>
-                <HandleProducts />
+                {ProductStore.products.map(product => <Product product={product}/>)}
             </div>
             <div className={styles.PagesNav}>
                 {ProductStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
