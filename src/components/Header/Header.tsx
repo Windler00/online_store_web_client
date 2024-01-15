@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import AuthStore from '../../store/AuthStore'
 import { useEffect, useRef, useState } from 'react'
-import {AiOutlineCaretDown, AiOutlineCaretUp, AiOutlineShoppingCart} from "react-icons/ai";
+import { AiOutlineCaretDown, AiOutlineCaretUp, AiOutlineShoppingCart } from "react-icons/ai";
+import styles from "./header.module.css"
 
 const Header = observer(() => {
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -18,7 +19,7 @@ const Header = observer(() => {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleOutsideClick = (event:any) => {
+        const handleOutsideClick = (event: any) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownIsOpen(false);
             }
@@ -33,32 +34,32 @@ const Header = observer(() => {
 
 
     return (
-        <div>
-            <div>
-                <Link to='/'>OnlineStore</Link>
+        <div className={styles.Header}>
+            <div className={styles.Left}>
+                <Link className='btn btn-dark' to='/'>OnlineStore</Link>
             </div>
-            <div>
+            <div className={styles.Right}>
                 {AuthStore.token === "" ? (
                     <div>
-                        <Link to='/login'>Login</Link>
-                        <Link to='/registration'>Registration</Link>
+                        <Link className='btn btn-dark' to='/login'>Login</Link>
+                        <Link className='btn btn-dark' to='/registration'>Registration</Link>
                     </div>
                 )
                     :
                     (
                         <div ref={dropdownRef}>
-                            <Link to={"/basket"}><AiOutlineShoppingCart /></Link>
-                            <button onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp/>) : (<AiOutlineCaretDown/>)}</button>
-                            {dropdownIsOpen && (<ul>
-                                <li><Link to="/profile">Profile</Link></li>
+                            <Link className='btn btn-dark' to={"/basket"}><AiOutlineShoppingCart /></Link>
+                            <button className='btn btn-dark' onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp />) : (<AiOutlineCaretDown />)}</button>
+                            {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
+                                <li><Link className='btn btn-dark' to="/profile">Profile</Link></li>
                                 {AuthStore.role === "Admin" ? (
                                     <>
-                                        <li><Link to="/admin">Admin panel</Link></li>
-                                        <li><Link to="/seller">Seller panel</Link></li>
+                                        <li><Link className='btn btn-dark' to="/admin">Admin panel</Link></li>
+                                        <li><Link className='btn btn-dark' to="/seller">Seller panel</Link></li>
                                     </>
                                 ) : (<></>)}
-                                {AuthStore.role === "Seller" ? (<><Link to="/seller">Seller panel</Link></>) : (<></>)}
-                                <li><button onClick={HandleLogout}>Log Out</button></li>
+                                {AuthStore.role === "Seller" ? (<><Link className='btn btn-dark' to="/seller">Seller panel</Link></>) : (<></>)}
+                                <li><button className='btn btn-dark' onClick={HandleLogout}>Log Out</button></li>
                             </ul>)}
                         </div>
                     )}

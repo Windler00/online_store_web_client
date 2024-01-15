@@ -3,29 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-self: center;
-}
-
-.Header button,
-a {
-    display: flex;
-    padding: 6px 12px;
-    background-color: #f2f2f2;
-    color: #333;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Arial", sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 2px;
-    border: 1px solid #cccccc;
-}
-
-.Header button:hover,
-a:hover {
-    background-color: #ddd;
+    padding: 2px;
+    background-color: #212529;
 }
 
 .Header ul {
@@ -44,12 +23,7 @@ a:hover {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 42px;
-}
-
-#Login,
-#Registration {
-    display: inline-flex;
-    flex-direction: row;
+    background-color: #212529;
 }
 
 .DropdownIcon {
@@ -57,7 +31,7 @@ a:hover {
     margin-left: 4px;
 }
 
-.right{
+.Right{
     display: flex;
     flex-direction: row;
 }
