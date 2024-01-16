@@ -3,6 +3,7 @@ import ProductStore from "../store/ProductStore"
 import { observer } from "mobx-react-lite"
 import ProductApi from "../api/ProductApi";
 import Product from "../components/Product/Product";
+import styles from "./home.module.css"
 
 
 const Home = observer(() => {
@@ -19,31 +20,50 @@ const Home = observer(() => {
         }
     }
 
-    const handlerChangeCurrentPage = async (event:any) => {
-        if(event.target.value >= 1 && event.target.value <= ProductStore.pages){
-            ProductApi.getProducts(event.target.value, ProductStore.pageSize)
+    const handlerChangeCurrentPage = async (value: any) => {
+        if (value >= 1 && value <= ProductStore.pages) {
+            ProductApi.getProducts(value, ProductStore.pageSize)
         }
-     }
+    }
 
 
     useEffect(() => {
         const fetch = async () => {
-            ProductApi.getProducts(1, 10)
+            ProductApi.getProducts(1, 1)
         }
         fetch()
-
-
     }, [])
+
     return (
         <div>
-            <div>
-                {ProductStore.products.map(product => <Product product={product}/>)}
+            <div className={styles.Products}>
+                {ProductStore.products.map(product => <Product product={product} />)}
             </div>
-            <div>
-                {ProductStore.currentPage === 1 ? (<button disabled>Previous</button>) : <button onClick={() => decreasePage()}>Previous</button>}
-                <input type="text" value={ProductStore.currentPage} onChange={handlerChangeCurrentPage}></input>
-                {ProductStore.currentPage === ProductStore.pages ? <button disabled>Next</button> : <button onClick={() => increasePage()}>Next</button>}
-                <p>Pages 1 - {ProductStore.pages}</p>
+            <div className={styles.PagesNav}>
+                {ProductStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                        {
+                            Array.from({ length: ProductStore.pages }, (_, index) => (
+                                ProductStore.currentPage === index +1 ?
+                                (<li className="page-item" key={index}><button disabled className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                : index +1 === 1 ?
+                                (<li className="page-item" key={index}><button className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                : index +1 === ProductStore.pages ?
+                                (<li className="page-item" key={index}><button className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                : ProductStore.currentPage === index ? 
+                                (<li className="page-item" key={index}><button className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                : ProductStore.currentPage === index + 1 ?
+                                (<li className="page-item" key={index}><button className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                : ProductStore.currentPage === index + 2 ?
+                                (<li className="page-item" key={index}><button className="btn btn-dark" onClick={() => handlerChangeCurrentPage(index +1)}>{index +1}</button></li>)
+                                :
+                                (null)
+                              ))
+                        }
+                    </ul>
+                </nav>
+                {ProductStore.currentPage === ProductStore.pages ? <button className="btn btn-dark" disabled>Next</button> : <button className="btn btn-dark" onClick={() => increasePage()}>Next</button>}
             </div>
         </div>
     )

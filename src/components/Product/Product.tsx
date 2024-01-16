@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import styles from "./product.module.css"
 
 interface Product {
     id: number;
@@ -16,9 +17,9 @@ interface Props{
 
 const Product = (product: Props) => {
     return (
-        <div key={product.product.id}>
-            <Link key={product.product.id} to={"/product/" + product.product.id}>
-                <div>
+        <div className={styles.Product} key={product.product.id}>
+            <Link className="btn" key={product.product.id} to={"/product/" + product.product.id}>
+                <div className={styles.ProductCard}>
                     <img src={product.product.imageUrl} alt="Product image" />
                     <h3>{product.product.name}</h3>
                     <p>{product.product.description.length >= 40? (product.product.description.substring(0, 40) + "...") : (product.product.description)}</p>
