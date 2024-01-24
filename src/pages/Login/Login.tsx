@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Auth from "../../api/AuthApi";
+import styles from "./login.module.css"
 
 const Login = observer(() => {
     let navigate = useNavigate();
@@ -33,31 +34,33 @@ const Login = observer(() => {
     };
 
     return (
-        <div>
+        <div className={styles.Login}>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className={styles.Form} onSubmit={handleSubmit}>
+                <div className={styles.FormGroup}>
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={handleEmailChange}
+                        className="form-control m-1"
                     />
                 </div>
-                <div>
+                <div className={styles.FormGroup}>
                     <label htmlFor="password">Password</label>
                     <input
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         value={password}
                         onChange={handlePasswordChange}
+                        className="form-control m-1"
                     />
-                    <button type="button" onClick={handleTogglePasswordVisibility}>
+                    <button className={styles.showPasswordButton} type="button" onClick={handleTogglePasswordVisibility}>
                         {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                     </button>
                 </div>
-                <button type="submit">
+                <button className="btn btn-dark" type="submit">
                     Log In
                 </button>
             </form>

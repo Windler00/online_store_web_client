@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import {AiFillEyeInvisible, AiFillEye} from "react-icons/ai";
 import Auth from '../../api/AuthApi';
+import styles from "./registration.module.css"
 
 const Registration = observer(() => {
     let navigate = useNavigate();
@@ -48,61 +49,66 @@ const Registration = observer(() => {
     };
 
     return (
-        <div>
+        <div className={styles.Registration}>
             <h1>Registration</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className={styles.From} onSubmit={handleSubmit}>
+                <div className={styles.FormGroup}>
                     <label htmlFor='email'>Email</label>
                     <input
                         type='email'
                         id='email'
                         value={email}
                         onChange={handleEmailChange}
+                        className='form-control m-1'
                     />
                 </div>
-                <div>
+                <div className={styles.FormGroup}>
                     <label htmlFor='email'>Repeat email</label>
                     <input
                         type='email'
                         id='repeatEmail'
                         value={repeatEmail}
                         onChange={handleRepeatEmailChange}
+                        className='form-control m-1'
                     />
                 </div>
-                <div>
+                <div className={styles.FormGroup}>
                     <label htmlFor='email'>Login</label>
                     <input
                         type='text'
                         id='login'
                         value={login}
                         onChange={handleLoginChange}
+                        className='form-control m-1'
                     />
                 </div>
-                <div>
+                <div className={styles.FormGroup}>
                     <label htmlFor='email'>Password</label>
                     <input
                         type={showPassword ? 'text' : 'password'}
                         id='password'
                         value={password}
                         onChange={handlePasswordChange}
+                        className='form-control m-1'
                     />
-                    <button type="button" onClick={handleTogglePasswordVisibility}>
+                    <button className={styles.showPasswordButton} type="button" onClick={handleTogglePasswordVisibility}>
                         {showPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
-                <div>
+                <div className={styles.FormGroup}>
                     <label htmlFor='email'>Repeat password</label>
                     <input
                         type={showRepeatPassword ? 'text' : 'password'}
                         id='repeatPassword'
                         value={repeatPassword}
                         onChange={handleRepeatPasswordChange}
+                        className='form-control m-1'
                     />
-                    <button type="button" onClick={handleToggleRepeatPasswordVisibility}>
+                    <button className={styles.showPasswordButton} type="button" onClick={handleToggleRepeatPasswordVisibility}>
                         {showRepeatPassword ? <AiFillEyeInvisible/> : <AiFillEye/>}
                     </button>
                 </div>
-                <button type="submit">
+                <button className='btn btn-dark' type="submit">
                     Registration
                 </button>
             </form>

@@ -5,6 +5,7 @@
   margin-left: 10%;
   width: 80%;
   height: 80%;
+  margin: 8px;
 }
 
 .Img {
@@ -16,42 +17,5 @@
 .ProductInfo {
   display: flex;
   flex-direction: column;
-  margin: 12px;
+  margin-left: 12px;
 }
-
-/*
-.ProductInfo h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.ProductInfo p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ProductInfo button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  width: 160px;
-}
-
-.ProductInfo button:hover {
-  background-color: #0056b3;
-}
-
-.ProductInfo button:active {
-  background-color: #003473;
-}
-
-.ProductInfo input {
-  width: 160px;
-}*/

@@ -1,54 +1,20 @@
-.login {
+.Login {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
 }
 
-.form {
+.Form {
     width: 300px;
     padding: 20px;
     background-color: #fff;
 }
 
-.formGroup {
+.FormGroup {
     position: relative;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-}
-
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-    margin-left: 4px;
-}
-
-input:focus {
-    border-color: #007bff;
-}
-
-.submitButton {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.submitButton:hover {
-    background-color: #0056b3;
 }
 
 .showPasswordButton {
