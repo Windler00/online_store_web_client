@@ -6,6 +6,7 @@ import Image from "../../components/Image/Image"
 import ProductApi from "../../api/ProductApi"
 import AuthStore from "../../store/AuthStore";
 import BasketApi from "../../api/BasketApi";
+import styles from "./product.module.css";
 
 
 const Product = observer(() => {
@@ -22,34 +23,51 @@ const Product = observer(() => {
     }, [])
 
     const BuyHandler = () => {
-        if(AuthStore.token === ""){
+        if (AuthStore.token === "") {
             return navigate("/registration")
         }
-        if(ProductStore.id !== undefined){
+        if (ProductStore.id !== undefined) {
             BasketApi.addProduct(ProductStore.id, quantity)
         }
     }
 
     const [quantity, setQuantity] = useState(1);
-    function changeQuantity(event:any){
-        if(ProductStore.quantity !== undefined && event.target.value <= ProductStore.quantity && event.target.value >= 1){
+    function changeQuantity(event: any) {
+        if (ProductStore.quantity !== undefined && event.target.value <= ProductStore.quantity && event.target.value >= 1) {
             setQuantity(event.target.value);
         }
     }
 
+    const [collapsed, setCollapsed] = useState(true);
+    const toggleCollapse = () => {
+        setCollapsed(!collapsed);
+    };
+
+    const displayText = collapsed ? ProductStore.description.slice(0, 200) : ProductStore.description;
+
+
     return (
-        <div>
+        <div className={styles.Product}>
             <div>
                 <Image src={ProductStore.imageUrl} alt="Product image"></Image>
             </div>
-            <div>
+            <div className={styles.ProductInfo}>
                 <h3>{ProductStore.name}</h3>
 
-                <p>Description: {ProductStore.description}</p>
+                <p>Description: {displayText} {ProductStore.description.length > 200 && collapsed && (
+                        <button style={{ background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'pointer' }} onClick={toggleCollapse}>
+                            {'...'}
+                        </button>
+                )}</p>
+
                 <p>Quantity: {ProductStore.quantity}</p>
                 <p>Price: {ProductStore.price} $</p>
-                <input type="number" value={quantity} onChange={changeQuantity}/>
-                <button onClick={BuyHandler}>Add to basket</button>
+                <div>
+                    <input className="form-control mb-3" type="number" value={quantity} onChange={changeQuantity} />
+                </div>
+                <div>
+                    <button className="btn btn-dark" onClick={BuyHandler}>Add to basket</button>
+                </div>
             </div>
         </div>
     )

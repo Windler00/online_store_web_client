@@ -29,7 +29,7 @@ const Home = observer(() => {
 
     useEffect(() => {
         const fetch = async () => {
-            ProductApi.getProducts(1, 1)
+            ProductApi.getProducts(1, 40)
         }
         fetch()
     }, [])
@@ -37,7 +37,7 @@ const Home = observer(() => {
     return (
         <div>
             <div className={styles.Products}>
-                {ProductStore.products.map(product => <Product product={product} />)}
+                {ProductStore.products.map((product, index) => <Product key={index} product={product} />)}
             </div>
             <div className={styles.PagesNav}>
                 {ProductStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}

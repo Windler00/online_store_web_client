@@ -5,7 +5,7 @@ type Product = {
     name: string;
     description: string;
     price: number;
-    quantity:number
+    quantity: number
     imageUrl: string;
 }
 
@@ -13,7 +13,7 @@ class ProductStore {
     @observable products: Product[] = [];
     @observable id?: number
     @observable name?: string;
-    @observable description?: string;
+    @observable description: string = "";
     @observable price?: number;
     @observable quantity?: number
     @observable imageUrl: string = "";
@@ -27,7 +27,7 @@ class ProductStore {
     }
 
     @action
-    setProducts(products: Product[]){
+    setProducts(products: Product[]) {
         this.products = products;
     }
 

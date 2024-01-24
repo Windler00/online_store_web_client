@@ -31,3 +31,14 @@
 .Zoomed img {
     cursor: zoom-out;
 }
+
+.normal {
+    max-width: 400px;
+    max-height: 200px;
+    cursor: pointer;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+}

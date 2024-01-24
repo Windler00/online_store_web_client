@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styles from "./Image.module.css"
 
 interface ImageProps {
     src: string;
@@ -6,20 +7,22 @@ interface ImageProps {
 }
 
 const Image: React.FC<ImageProps> = ({ src, alt }) => {
-    const [zoomed, setZoomed] = useState(false);
-
-    const handleClick = () => {
-        setZoomed(!zoomed);
-    };
-
     return (
-        <div>
+        <div className={styles.Image}>
             <img
                 src={src}
                 alt={alt}
-                onClick={handleClick}
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                className={styles.normal}
             />
-            {zoomed && <div onClick={handleClick} />}
+
+            <div className="modal modal-lg fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <img className={styles.img} src={src} alt={alt}/>
+                </div>
+            </div>
+
         </div>
 
     );
