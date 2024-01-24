@@ -6,6 +6,10 @@
     margin-top: 20px;
 }
 
+.Products a {
+    border: none;
+}
+
 .PagesNav{
     display: flex;
     flex-direction: row;

@@ -3,9 +3,6 @@
     margin: 1px;
 }
 
-.Product a {
-    border: none;
-}
 
 .ProductCard {
     display: flex;

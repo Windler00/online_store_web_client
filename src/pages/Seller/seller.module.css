@@ -1,4 +1,4 @@
-.Seller {
+/* .Seller {
     display: flex;
     flex-direction: row;
 }
@@ -141,4 +141,44 @@
 .ProductsWrapper {
     display: inline-flex;
     flex-direction: column;
+} */
+.Seller {
+    display: flex;
+    flex-direction: row;
+}
+
+.ChangeProduct{
+    display: flex;
+    flex-direction: column;
+    min-width: 450px;
+    margin-left: 24px;
+}
+
+.ChangeProduct input {
+    max-width: 300px;
+}
+
+.Products{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.Products button {
+    border: none;
+    background-color: white;
+}
+
+.PagesNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 12px;
+}
+
+.PagesNav button{
+    height: 38px;
+    margin: 1px;
 }

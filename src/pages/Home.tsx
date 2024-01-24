@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import ProductApi from "../api/ProductApi";
 import Product from "../components/Product/Product";
 import styles from "./home.module.css"
+import { Link } from "react-router-dom";
 
 
 const Home = observer(() => {
@@ -37,7 +38,7 @@ const Home = observer(() => {
     return (
         <div>
             <div className={styles.Products}>
-                {ProductStore.products.map((product, index) => <Product key={index} product={product} />)}
+                {ProductStore.products.map((product, index) => <><Link className="btn" to={"/product/" + product.id}><Product key={index} product={product}/></Link></>)}
             </div>
             <div className={styles.PagesNav}>
                 {ProductStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}
