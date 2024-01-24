@@ -25,7 +25,7 @@ const Admin = observer(() => {
         }
         return (
             <div>
-                <select value={role} onChange={handleRoleChange}>
+                <select className="form-select" value={role} onChange={handleRoleChange}>
                     <option value="User">User</option>
                     <option value="Seller">Seller</option>
                     <option value="Admin">Admin</option>
@@ -40,13 +40,13 @@ const Admin = observer(() => {
             {AuthStore.role !== "Admin" && AuthStore.token === "" ? (<Navigate to={"/"} replace={true} />)
                 :
                 <div>
-                    <table>
+                    <table className="table">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
                             </tr>
                         </thead>
                         <tbody>
