@@ -11,9 +11,9 @@ class UiStore {
     @action
     AddSuccessAlert(message: string) {
         const alert = (
-            <div className='success' key={Date.now()}>
-                <p className='success-message'>{message}</p>
-                <button className='success-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            <div className="alert alert-success" key={Date.now()}>
+                <div>{message}</div>
+                <button className="btn-close close-button" onClick={() => this.RemoveAlert(message)}></button>
             </div>
         )
         this.AlertStore.push(alert)
@@ -27,9 +27,9 @@ class UiStore {
     @action
     AddInfoAlert(message: string) {
         const alert = (
-            <div className='info' key={Date.now()}>
-                <p className='info-message'>{message}</p>
-                <button className='info-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            <div className="alert alert-info" key={Date.now()}>
+                <div>{message}</div>
+                <button className="btn-close close-button" onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
             </div>
         )
         this.AlertStore.push(alert)
@@ -43,9 +43,9 @@ class UiStore {
     @action
     AddWarningAlert(message: string) {
         const alert = (
-            <div className='warning' key={Date.now()}>
-                <p className='warning-message'>{message}</p>
-                <button className='warning-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            <div className="alert alert-warning" key={Date.now()}>
+                <div>{message}</div>
+                <button className="btn-close close-button" onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
             </div>
         )
         this.AlertStore.push(alert)
@@ -59,9 +59,9 @@ class UiStore {
     @action
     AddErrorAlert(message: string) {
         const alert = (
-            <div className='error' key={Date.now()}>
-                <p className='error-message'>{message}</p>
-                <button className='error-button' onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
+            <div className="alert alert-danger" key={Date.now()}>
+                <div>{message}</div>
+                <button className="btn-close close-button" onClick={() => this.RemoveAlert(message)}><AiOutlineClose/></button>
             </div>
         )
         this.AlertStore.push(alert)
