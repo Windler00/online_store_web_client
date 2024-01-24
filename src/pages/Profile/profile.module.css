@@ -1,64 +1,15 @@
-.profile {
+.Form {
+    width: 300px;
+}
+
+.FormGroup {
+    display: flex;
+    flex-direction: column
+}
+
+.InputPassword{
     display: flex;
     flex-direction: row;
-}
-
-.ProfileInfo {
-    display: flex;
-    flex-direction: column;
-    margin-right: 32px;
-}
-
-.ProfileChange {
-    display: flex;
-    flex-direction: column;
-}
-
-.avatar {
-    display: flex;
-    max-width: 200px;
-    max-height: 200px;
-    margin: 16px;
-}
-
-.Form {
-    margin-bottom: 15px;
-}
-
-.Form label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.Form input {
-    display: flex;
-    flex-direction: column;
-    width: 100px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-    margin-bottom: 5px;
-}
-
-.Form input:focus {
-    border-color: #007bff;
-}
-
-.SubmitButton {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 4px;
-}
-
-.SubmitButton:hover {
-    background-color: #0056b3;
 }
 
 .showPasswordButton {
@@ -74,19 +25,7 @@
     height: 24px;
 }
 
-.FileInput {
+.Profile {
     display: flex;
-    margin-right: 24px;
-}
-
-
-.FileInputLabel {
-    margin-left: 8px;
-}
-
-.InputFileWrapper input {
-    border-radius: none;
-    border: none;
-    margin-left: 0;
-    padding-left: 0;
+    justify-content: center;
 }

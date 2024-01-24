@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Image from "../../components/Image/Image"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Auth from "../../api/AuthApi";
+import styles from './profile.module.css'
 
 
 const Profile = observer(() => {
@@ -38,17 +39,21 @@ const Profile = observer(() => {
             Auth.changeEmail(email)
         };
         return (
-            <div>
-                <form>
-                    <label>{AuthStore.email}</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={handleEmailChange} />
+            <>
+                <form className={styles.Form}>
+                    <div className={styles.FormGroup}>
+                        <label>Current email: {AuthStore.email}</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={handleEmailChange}
+                            className="form-control m-1"
+                        />
+                    </div>
                 </form>
-                <button type="submit" onClick={handleSubmitEmail}>Submit</button>
-            </div>
+                <button className="btn btn-dark" type="submit" onClick={handleSubmitEmail}>Submit</button>
+            </>
         )
     })
 
@@ -63,17 +68,21 @@ const Profile = observer(() => {
             Auth.changeName(name)
         };
         return (
-            <div>
-                <form>
-                    <label>{AuthStore.name}</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={handleNameChange} />
+            <>
+                <form className={styles.Form}>
+                    <div className={styles.FormGroup}>
+                        <label>Current name: {AuthStore.name}</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={handleNameChange}
+                            className="form-control m-1"
+                        />
+                    </div>
                 </form>
-                <button type="submit" onClick={handleSubmitName}>Submit</button>
-            </div>
+                <button className="btn btn-dark" type="submit" onClick={handleSubmitName}>Submit</button>
+            </>
         )
     })
 
@@ -104,41 +113,44 @@ const Profile = observer(() => {
         };
 
         return (
-            <div>
-                <form>
-                    <label>Change password</label>
+            <>
+                <form className={styles.Form}>
                     <div>
-                        <input
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            value={newPass}
-                            onChange={handleNewPassChange}
-                        />
-                        <button type="button" onClick={handleTogglePasswordVisibility}>
-                            {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-                        </button>
+                        <label>Change password</label>
+                        <div className={styles.InputPassword}>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                value={newPass}
+                                onChange={handleNewPassChange}
+                                className="form-control m-1"
+                            />
+                            <button className={styles.showPasswordButton} type="button" onClick={handleTogglePasswordVisibility}>
+                                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                            </button>
+                        </div>
+                        <div className={styles.InputPassword}>
+                            <input
+                                type={showRepeatPassword ? 'text' : 'password'}
+                                id="repeatPassword"
+                                value={newPassRepeat}
+                                onChange={handleNewPassRepeatChange}
+                                className="form-control m-1"
+                            />
+                            <button className={styles.showPasswordButton} type="button" onClick={handleToggleRepeatPasswordVisibility}>
+                                {showRepeatPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                            </button></div>
                     </div>
-                    <div>
-                        <input
-                            type={showRepeatPassword ? 'text' : 'password'}
-                            id="repeatPassword"
-                            value={newPassRepeat}
-                            onChange={handleNewPassRepeatChange}
-                        />
-                        <button type="button" onClick={handleToggleRepeatPasswordVisibility}>
-                            {showRepeatPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-                        </button></div>
-
                 </form>
-                <button type="submit" onClick={handleSubmitNewPass}>Submit</button>
-            </div>
+                <button className="btn btn-dark" type="submit" onClick={handleSubmitNewPass}>Submit</button>
+            </>
         )
     })
 
     return (
-        <div>
-            <div>
-                <div>
+        <div className={styles.Profile}>
+            <div className="m-2">
+                <div className="m-2">
                     {AuthStore.avatar === "" ?
                         (
                             <>
@@ -154,13 +166,13 @@ const Profile = observer(() => {
                 </div>
                 <div>
                     <form>
-                        <input type="file" onChange={handleFileChange} />
-                        <button onClick={handleSubmitAvatar}>Submit</button>
+                        <input type="file" className="form-control m-1" onChange={handleFileChange} />
+                        <button className="btn btn-dark m-1" onClick={handleSubmitAvatar}>Submit</button>
                     </form>
                 </div>
             </div>
 
-            <div>
+            <div className="m-2">
                 <HandleEmail />
                 <HandleName />
                 <HandlePassword />
