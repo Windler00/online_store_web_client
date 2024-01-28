@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import BasketApi from "../../api/BasketApi"
 import BasketStore from "../../store/BasketStore"
 import AuthStore from "../../store/AuthStore"
 import { useNavigate } from "react-router-dom"
 import Product from "../../components/Product/Product"
 import styles from './basket.module.css'
+import OrdersApi from "../../api/OrdersApi"
 
 const Basket = observer(() => {
     let navigate = useNavigate();
@@ -18,17 +19,6 @@ const Basket = observer(() => {
         }
         fetch()
     }, [])
-
-    const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
-    const handleSelectedProducts = (event: any) => {
-        var updatedList = [...selectedProducts];
-        if (event.target.checked) {
-            updatedList = [...selectedProducts, event.target.value];
-        } else {
-            updatedList.splice(selectedProducts.indexOf(event.target.value), 1);
-        }
-        setSelectedProducts(updatedList);
-    };
 
     const decreaseQuantity = async (id: number, newQuantity: number) => {
         if (newQuantity > 0) {
@@ -61,6 +51,14 @@ const Basket = observer(() => {
         }
     }
 
+    const handleBuyProducts = async () => {
+        BasketStore.products.map( async (product:any) => {
+            await OrdersApi.addProduct(product.product.id, product.quantity);
+            await BasketApi.deleteProduct((product.product.id))
+        })
+        await BasketApi.getProducts(1, 10);
+    }
+
 
     return (
         <div>
@@ -81,7 +79,7 @@ const Basket = observer(() => {
                 ))}
             </div>
             <div>
-                <button className="btn btn-dark m-3">Buy</button>
+                <button className="btn btn-dark m-3" onClick={() => handleBuyProducts()}>Buy</button>
             </div>
             <div className={styles.PagesNav}>
                 {BasketStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}

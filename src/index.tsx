@@ -14,6 +14,7 @@ import Product from './pages/Product/Product';
 import Admin from './pages/Admin/Admin';
 import Seller from './pages/Seller/Seller';
 import Basket from './pages/Basket/Basket';
+import Orders from './pages/Orders/Orders';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/basket",
     element: <Layout><Basket></Basket></Layout>,
+  },
+  {
+    path: "/orders",
+    element: <Layout><Orders></Orders></Layout>,
   },
 ]);
 

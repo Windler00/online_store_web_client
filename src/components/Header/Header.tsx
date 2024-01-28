@@ -52,6 +52,7 @@ const Header = observer(() => {
                             <button className='btn btn-dark' onClick={handleClick}>{AuthStore.email} {dropdownIsOpen ? (<AiOutlineCaretUp />) : (<AiOutlineCaretDown />)}</button>
                             {dropdownIsOpen && (<ul className={styles.DropdownMenu}>
                                 <li><Link className='btn btn-dark' to="/profile">Profile</Link></li>
+                                <li><Link className='btn btn-dark' to="/orders">Orders</Link></li>
                                 {AuthStore.role === "Admin" ? (
                                     <>
                                         <li><Link className='btn btn-dark' to="/admin">Admin panel</Link></li>
