@@ -31,7 +31,28 @@
     margin-left: 4px;
 }
 
-.Right{
+.Spinner {
+    position: fixed;
+    margin-left: 183px;
+    margin-top: 6px;
+}
+
+.Search form {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 600px) {
+    input[type="text"] {
+        display: none;
+    }
+}
+
+.Search button {
+    margin-left: 8px;
+}
+
+.Right {
     display: flex;
     flex-direction: row;
 }
@@ -42,7 +63,7 @@
     align-items: center;
 }
 
-.cart{
+.cart {
     display: flex;
     margin: 4px;
 }

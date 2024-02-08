@@ -38,7 +38,7 @@ const Home = observer(() => {
     return (
         <div>
             <div className={styles.Products}>
-                {ProductStore.products.map((product, index) => <><Link className="btn" to={"/product/" + product.id}><Product key={index} product={product}/></Link></>)}
+                {ProductStore.products.map((product, index) => <><Link className="btn" to={"/product/" + product.id} key={index}><Product key={index} product={product}/></Link></>)}
             </div>
             <div className={styles.PagesNav}>
                 {ProductStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}

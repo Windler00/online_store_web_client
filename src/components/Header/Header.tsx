@@ -4,8 +4,13 @@ import AuthStore from '../../store/AuthStore'
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineCaretDown, AiOutlineCaretUp, AiOutlineShoppingCart } from "react-icons/ai";
 import styles from "./header.module.css"
+import SearchApi from '../../api/SearchApi';
+import ProductApi from '../../api/ProductApi';
 
 const Header = observer(() => {
+
+    const [isLoading, setIsLoading] = useState(false);
+
     const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
     const handleClick = () => {
@@ -17,7 +22,6 @@ const Header = observer(() => {
     }
 
     const dropdownRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
         const handleOutsideClick = (event: any) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -32,11 +36,49 @@ const Header = observer(() => {
         };
     }, []);
 
+    const [searchText, setSearchText] = useState("");
+    const handleSetSearch = (event: any) => {
+        setSearchText(event.target.value);
+    }
+
+    const handleSearch = async (event: any) => {
+        event.preventDefault();
+        setIsLoading(true);
+        if (searchText === ""){
+            await ProductApi.getProducts(1,10)
+        }
+        else{
+            await SearchApi.searchProducts(searchText, 1,40)
+        }
+        setIsLoading(false);
+    }
 
     return (
         <div className={styles.Header}>
             <div className={styles.Left}>
                 <Link className='btn btn-dark' to='/'>OnlineStore</Link>
+            </div>
+            <div className={styles.Center}>
+                <div className={styles.Search}>
+                    <form onSubmit={handleSearch}>
+                        <input
+                            className='form-control'
+                            type='text'
+                            placeholder='Type to search...'
+                            value={searchText}
+                            onChange={handleSetSearch}
+                        >
+                        </input>
+                        {isLoading ?
+                            (<div className={styles.Spinner}>
+                                <div className="spinner-border spinner-border-sm opacity-50" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>)
+                            : null}
+                        <button type='submit' className='btn btn-dark'>Search</button>
+                    </form>
+                </div>
             </div>
             <div className={styles.Right}>
                 {AuthStore.token === "" ? (
