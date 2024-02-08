@@ -73,7 +73,7 @@ const Orders = observer(() => {
                         }
                     </ul>
                 </nav>
-                {OrdersStore.currentPage === OrdersStore.pages ? <button className="btn btn-dark" disabled>Next</button> : <button className="btn btn-dark" onClick={() => increasePage()}>Next</button>}
+                {OrdersStore.currentPage >= OrdersStore.pages ? <button className="btn btn-dark" disabled>Next</button> : <button className="btn btn-dark" onClick={() => increasePage()}>Next</button>}
             </div>
         </div>
     )

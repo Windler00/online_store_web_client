@@ -52,7 +52,7 @@ const Basket = observer(() => {
     }
 
     const handleBuyProducts = async () => {
-        BasketStore.products.map( async (product:any) => {
+        BasketStore.products.map(async (product: any) => {
             await OrdersApi.addProduct(product.product.id, product.quantity);
             await BasketApi.deleteProduct((product.product.id))
             await BasketApi.getProducts(1, 10);
@@ -79,7 +79,7 @@ const Basket = observer(() => {
                 ))}
             </div>
             <div>
-                {BasketStore.products.length > 0 ? (<button className="btn btn-dark m-3" onClick={() => handleBuyProducts()}>Buy</button>): null}
+                {BasketStore.products.length > 0 ? (<button className="btn btn-dark m-3" onClick={() => handleBuyProducts()}>Buy</button>) : null}
             </div>
             <div className={styles.PagesNav}>
                 {BasketStore.currentPage === 1 ? (<button className="btn btn-dark" disabled>Previous</button>) : <button className="btn btn-dark" onClick={() => decreasePage()}>Previous</button>}
@@ -105,7 +105,7 @@ const Basket = observer(() => {
                         }
                     </ul>
                 </nav>
-                {BasketStore.currentPage === BasketStore.pages ? <button className="btn btn-dark" disabled>Next</button> : <button className="btn btn-dark" onClick={() => increasePage()}>Next</button>}
+                {BasketStore.currentPage >= BasketStore.pages ? <button className="btn btn-dark" disabled>Next</button> : <button className="btn btn-dark" onClick={() => increasePage()}>Next</button>}
             </div>
         </div >
     )
